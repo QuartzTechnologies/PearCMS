@@ -1,0 +1,44 @@
+<div class="page-section">
+	<div class="section-title">
+		<?php print $this->lang['messager_outbox_sheet_title'] ?>
+			<div class="dropdown_list_head float-right" id="messanger_actions_menu_head">
+				<?php print $this->lang['meessanger_actions_list_head'] ?></div>
+    		</div>
+	<div class="section-content">
+		<?php if ( count($messages) > 0 ): /** Do we got any sended messages? **/ ?>
+		<table class="width-full">
+			<tr>
+				<th style="width: 5%;">&nbsp;</th>
+				<th style="width: 40%;"><?php print $this->lang['message_title_field'] ?></th>
+				<th style="width: 20%;"><?php print $this->lang['message_receiver_field'] ?></th>
+				<th style="width: 20%;"><?php print $this->lang['message_sent_date_field'] ?></th>
+			</tr>;
+			<?php $i = 0; ?>
+			<?php foreach( $messages as $message ): ?>
+				<tr class="row<?php print ( $i++ % 2 == 0 ? '1' : '2' ) ?>">
+				<td style="width: 5%;"><img src="<?php print $this->imagesUrl ?>/private_message_sent.png" alt="" /></td>
+				<td style="width: 40%;"><a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=show-message&amp;message_id=' . $message['message_id'] ) ?>"><?php print $message['message_title'] ?></a></td>
+				<td style="width: 20%;"><a href="<?php print $this->absoluteUrl( 'load=profile&amp;id=' . $message['member_id'] ) ?>"><?php print $message['member_name'] ?></a></td>
+				<td style="width: 20%;"><?php print $this->pearRegistry->getDate($message['message_send_date']) ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php else: ?>
+		<div class="information-message"><?php print $this->lang['no_outbox_private_messages'] ?></div>
+		<?php endif; ?>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+<?php print $pages ?>
+<div class="dropdown_menu_wrapper" id="messanger_actions_menu">
+	<div class="title"><?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message' ) ?>"><?php print $this->lang['send_new_message_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=inbox' ) ?>"><?php print $this->lang['view_inbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=outbox' ) ?>"><?php print $this->lang['view_outbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=favorites' ) ?>"><?php print $this->lang['view_favebox_action'] ?></a>
+</div>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	PearRegistry.Menus.register( new PearMenu( 'messanger_actions_menu_head', 'messanger_actions_menu' ) );
+//]>
+</script>

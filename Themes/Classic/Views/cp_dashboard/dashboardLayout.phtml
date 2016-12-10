@@ -1,0 +1,225 @@
+<?php $this->addJSFile( '/PearUITabs.js' ) ?>
+<?php if ( $this->settings['site_is_offline'] ): ?>
+<div class="warning-message">
+	<?php printf($this->lang['site_offline_turn_notice_message'], $this->absoluteUrl('load=settings&amp;do=toggle-site-status')) ?>
+</div>
+<?php endif; ?>
+
+<table class="table-with-sidebar">
+	<tr>
+		<td>
+			<div class="data-block">
+			<div class="title">
+				<?php print $this->lang['cp_dashboard_message_title'] ?></div>
+			<div class="content gradient">
+				<div class="describe-image" style="background-image: url(./Images/information.png);">
+					<?php print $this->lang['cp_dashboard_message_content'] ?>
+				</div>
+			</div>
+		</div>
+		<div class="data-block">
+				<div class="title">
+					<?php print $this->lang['quickaccess_title'] ?></div>
+				<div class="content center gradient">
+					<div style="margin: 0px auto;">
+					<ul id="pearcp-dashboard-quick-access">
+						<li>
+							<a href="<?php print $this->absoluteUrl( 'load=settings&amp;do=general ') ?>"><img src="<?php print $this->absoluteUrl('/Images/QuickAccess/settings.png', 'cp_root') ?>" alt="" />
+								<?php print $this->lang['qa_general_settings'] ?></a></li>
+						<li>
+							<a href="<?php print $this->absoluteUrl( 'load=groups&amp;do=manage-groups' ) ?>"><img src="<?php print $this->absoluteUrl( '/Images/QuickAccess/groups.png', 'cp_root' ) ?>" alt="" />
+								<?php print $this->lang['qa_member_groups'] ?></a></li>
+						<li>
+							<a href="<?php print $this->absoluteUrl( 'load=members&amp;do=manage' ) ?>"><img src="<?php print $this->absoluteUrl( '/Images/QuickAccess/members.png', 'cp_root' ) ?>" alt="" />
+								<?php print $this->lang['qa_member_management'] ?></a></li>
+						<li>
+							<a href="<?php print $this->absoluteUrl( 'load=content&amp;do=manage' ) ?>"><img src="<?php print $this->absoluteUrl( '/Images/QuickAccess/content.png' ,'cp_root' ) ?>" alt="" />
+								<?php print $this->lang['qa_content_management'] ?></a></li>
+						<li>
+							<a href="<?php print $this->absoluteUrl( 'load=addons&amp;do=manage' ) ?>"><img src="<?php print $this->absoluteUrl( '/Images/QuickAccess/addons.png' ,'cp_root' ) ?>" alt="" />
+								<?php print $this->lang['qa_addons_management'] ?></a></li>
+					</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+	 	<div class="data-block">
+	 		<div class="title">
+	 			<?php print $this->lang['recent_updates_block_title'] ?></div>
+	 		<div class="content gradient">
+	 			<ul class="pearcp-tabs-wrapper" id="PearCPRecentUpdates_TabStrip">
+					<li><?php print $this->lang['currently_active_tab_title']?></li>
+					<li><?php print $this->lang['admincp_auth_history_tab_title'] ?></li>
+				</ul>
+				<div class="pearcp-tabs-content" id="PearCPRecentUpdates_PaneWrapper">
+					<div id="PearCPRecentUpdates-1">
+						<table class="width-full gradient-table">
+							<tr class="group-header">
+								<th><?php print $this->lang['currently_signed_admin_name'] ?></th>
+								<th><?php print $this->lang['currently_signed_ip_address'] ?></th>
+								<th><?php print $this->lang['currently_signed_sign_time'] ?></th>
+								<th><?php print $this->lang['currently_signed_location'] ?></th>
+								<th>&nbsp;</th>
+							</tr>
+						<?php foreach ($activeAdmins as $i => $admin): ?>
+							<tr class="row<?php print ($i % 2 == 0 ? '1' : '2') ?>">
+								<td>
+									<a href="<?php print $this->absoluteUrl('load=profile&amp;id=' . $admin['member_id'], 'site') ?>" target="_blank"><?php print $admin['member_name'] ?></a>
+								<td>
+									<?php print $admin['member_ip_address'] ?></td>
+								<td>
+									<?php print $this->pearRegistry->getDate($admin['session_login_time']) ?></td>
+								<td><?php print ($this->lang['location__' . $admin['member_at_zone'] ] ? $this->lang['location__' . $admin['member_at_zone']] : $admin['member_at_zone'] ) ?></td>
+								<td>
+									<a href="<?php print $this->absoluteUrl('load=members&amp;do=edit&amp;member_id=' . $admin['member_id']) ?>" class="secondary-button"><?php print $this->lang['edit'] ?></a></td>
+							</tr>
+						<?php endforeach; ?>
+						</table>	
+					</div>
+					<div id="PearCPRecentUpdates-2">
+						<table class="width-full gradient-table">
+							<tr class="group-header">
+								<th>&nbsp;</th>
+								<th><?php print $this->lang['auth_history_member_email'] ?></th>
+								<th><?php print $this->lang['auth_history_ip_address'] ?></th>
+								<th><?php print $this->lang['auth_history_attempt_time'] ?></th>
+							</tr>
+						<?php foreach ($loginAttempts as $i => $attempt): ?>
+							<tr class="row<?php print ($i % 2 == 0 ? '1' : '2') ?>">
+								<td>
+									<img src="./Images/<?php print ($attempt['log_attempt_success'] ? 'tick' : 'cross' ) ?>.png" alt="" /></td>
+								<td>
+									<?php print $attempt['log_member_email'] ?>
+								<td>
+									<?php print $attempt['log_member_ip'] ?></td>
+								<td>
+									<?php print $this->pearRegistry->getDate($attempt['log_attempt_time']) ?></td>
+							</tr>
+						<?php endforeach; ?>
+							<tr class="group-header">
+								<th colspan="4" class="right"><a href="<?php print $this->absoluteUrl('load=dashboard&amp;do=view-all-auth-logs') ?>"><img src="./Images/search.png" class="middle" />&nbsp;<?php print $this->lang['view_all_authentication_logs_link'] ?></a></th>
+							</tr>
+						</table>	
+					</div>
+				</div>
+	 		</div>
+	 	</div>
+		<script type="text/javascript">
+		//<![CDATA[
+			new PearUITabs('PearCPRecentUpdates', 1, { effectType: "slide", duration: 0.5 });
+		//]]>
+		</script>
+	    <div class="data-block">
+	    		<div class="title">
+	    			<div class="float-right">
+	    				<img src="./Images/information-sign.png" class="" alt="" /> <a href="<?php print $this->absoluteUrl('load=dashboard&amp;do=this-pearcms') ?>"><?php print $this->lang['about_this_pearcms'] ?></a>
+	    			</div>
+	    			<?php print $this->lang['statistics_title'] ?>
+	    			
+	    		</div>
+	    		<div class="content gradient">
+	    			<div class="describe-image" style="background-image: url('./Images/statistics.png')">
+				    <table id="PearCPDashboardStatisticsTable" class="width-full">
+				        <tr class="row1">
+				            <td><?php print $this->lang['stat_php_version'] ?> <span class="italic underline ltr"><?php print phpversion() ?></span></td>
+				            <td><?php print $this->lang['stat_sql_version'] ?> <span class="italic underline ltr"><?php print $this->pearRegistry->db->fetchCurrentSQLVersion() ?></span></td>
+				        </tr>
+				        <tr class="row2">
+				        		<td><?php print $this->lang['stat_pearcms_version'] ?> <span class="italic underline ltr"><?php print $this->pearRegistry->version ?></span></td>
+				            <td><?php print $this->lang['stat_admin_email'] ?> <span class="italic underline ltr"><?php print $this->settings['site_admin_email_address'] ?></span></td>
+				         </tr>
+				         <tr class="row1">
+				        		<td><?php print $this->lang['stat_site_title'] ?> <span class="italic underline"><?php print $this->settings['site_name'] ?></span></td>
+				            <td><?php print $this->lang['stat_site_slogan'] ?> <span class="italic underline"><?php print $this->settings['site_slogan'] ?></span></td>
+				         </tr>
+				        <tr class="row2">
+				            <td><?php print $this->lang['stat_registered_members'] ?> <span class="italic underline"><?php print $registeredMembersCount ?></span></td>
+				            <td><?php print $this->lang['stat_member_groups'] ?> <span class="italic underline"><?php print $availableGroupsCount ?></span></td>
+				        </tr>
+				    </table>
+			    </div>
+	    		</div>
+	    </div>
+	   </td>
+	  	<td>
+	  		<div class="data-block">
+      		  	<div class="title">
+					<?php print $this->lang['cp_admins_chat'] ?>
+      		  		<a href="<?php print $this->absoluteUrl( 'load=dashboard&amp;do=delete-all-chat-messages' ) ?>" class="float-right"><?php print $this->lang['delete_all'] ?></a>
+      		  	</div>
+				<div class="content cp-chat">
+					<form method="post" action="<?php print $this->absoluteUrl( 'load=dashboard&amp;do=send-chat-message' ) ?>">
+						<input type="hidden" name="authsession" value="<?php print $this->request['authsession'] ?>">
+						<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+						<div id="chat_messages">
+							<?php if ( count($chatMessages) > 0 ): /** Do we got any messages to display? **/ ?>
+								<?php foreach ($chatMessages as $i => $message):  /** Run and print the available chat messages **/ ?>
+								<div class="DataEntry">
+									<div class="float-left">
+										<?php print $message['message_content'] ?></div>
+									<?php if ( $message['member_id'] == $this->pearRegistry->member['member_id'] OR $this->pearRegistry->member['edit_admin_chat'] == 1): /** Can I delete this chat message? **/ ?>
+									<div class="float-right">
+										<a href="<?php print $this->absoluteUrl('load=dashboard&amp;do=delete-chat-message&amp;msg_id=' . $message['message_id']) ?>" class="deleteHref" onclick="return pearRegistry.deleteAlert();"><?php print $this->lang['delete_message'] ?></a></div>
+									<?php endif; ?>
+									<div class="clear"></div>
+									<div class="entry-metadata">
+										<?php print $this->lang['by'] ?> <a href="<?php print $this->absoluteUrl('load=profile&amp;id=' . $message['member_id'], 'site' ) ?>" target="_blank"><?php print $message['member_name'] ?></a>, <?php print $message['message_added_time'] ?>
+									</div>
+									<?php if ( $i < count($chatMessages) - 1 ): /** Do we more messages? if so, add a sepration line **/ ?>
+									<hr style="border:1px dashed #a1a1a1;" />
+									<?php endif; ?>
+								</div>
+								<?php endforeach; ?>
+							<?php else: ?>
+							<div class="warning-message"><?php print $this->lang['cp_no_chat_messages'] ?></div>
+							<?php endif; ?>
+						</div>
+						
+						<div class="message-creation-form right">
+                        		<input type="text" class="input-text" name="chat_messege" />
+                     		<input type="submit" value="<?php print $this->lang['send_button'] ?>" class="input-submit" />
+                        	</div>
+                		</form>
+				</div>
+			</div>
+			<div class="data-block">
+				<div class="title"><?php print $this->lang['pearcms_announcements'] ?></div>
+				<div class="content gradient" id="PearCMS_Announcements">
+					<img src="./Images/loading-animation.gif" alt="" /> <?php print $this->lang['system_loading-message-layer'] ?>
+				</div>
+			</div>
+			<div class="data-block">
+			  	<div class="title">
+			  		<?php printf( $this->lang['x_last_admin_actions'], 10 ) ?>
+      		  		<a href="<?php print $this->absoluteUrl( 'load=dashboard&amp;do=view-all-admin-logs' ) ?>" class="float-right"><?php print $this->lang['view_all'] ?></a>
+			  	</div>
+      		  	<div class="content gradient">
+      		  		<?php if ( count($adminLatestLogs) > 0 ): /** Do we got any avilable log? **/ ?>
+      		  			<?php foreach($adminLatestLogs as $i => $log): /** Run and display the logs **/ ?>
+						<div class="DataEntry">
+							<div class="entry-title">
+								<span class="entry-identifier">#<?php print $log['log_id'] ?></span> <?php print $log['log_action_text'] ?>
+							</div>
+							<div class="entry-metadata">
+								<?php print $this->lang['by'] ?> <?php print $log['member_name'] ?>, <?php print $log['log_action_time'] ?>.
+							</div>
+							<?php if ( $i < count($adminLatestLogs) - 1 ): /** Do we more logs? if so, add a sepration line **/ ?>
+							<hr style="border:1px dashed #a1a1a1;" />
+							<?php endif; ?>
+						</div>
+      		  			<?php endforeach; ?>
+      		  		<?php else: ?>
+      		  		<div class="warning-message"><?php print $this->lang['cp_no_activity_logs_found'] ?></div>
+      		  		<?php endif; ?>
+				</div>
+      		</div>
+	  	</td>
+	</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+	
+	PearLib.includeJSFile('https://pearcms.com/api/jsonp/feeds/latest-news/?callback=' + encodeURI('PearRegistry.CP.importPearCMSAnnouncements'));
+
+//]]>
+</script>

@@ -1,0 +1,11 @@
+<div class="data-block">
+	<div class="title error"><?php print $this->lang['error_occurred'] ?></div>
+	<div class="content describe-image" style="background-image: url(./Images/exclamation.png);">
+		<?php print $message ?>
+	</div>
+	<div class="error-navigation-links">
+		<a href="javascript: history.back(-1);"><img src="./Images/arrow-right.png" alt="" class="middle" /> <?php print $this->lang['error_back_to_prev_page']?></a>
+		<a href="http://pearcms.com/community" target="_blank"><img src="./Images/arrow-left.png" alt="" class="middle" /> <?php print $this->lang['error_search_in_pearcms_community'] ?></a>
+		<a href="http://pearcms.com/contact-us.html?category=bug" target="_blank"><img src="./Images/report-error.png" alt="" class="middle" /> <?php print $this->lang['error_report_bug_to_pearcms_staff'] ?></a>
+	</div>
+</div>

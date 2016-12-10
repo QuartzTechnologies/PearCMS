@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><?php print $pageTitle ?></title>
+
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/prototype.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/scriptaculous/scriptaculous-cache.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearRegistry.js', 'site') ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/Setup/PearSetupRegistry.js', 'site') ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearMenu.js', 'site' ) ?>"></script>
+	<?php print $this->pearRegistry->response->getPageHeaders() ?>
+	<meta name="robots" content="noindex, nofollow" />
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		
+		//=============================================================
+		//	Define vars
+		//=============================================================
+		
+		/** ##############  	Globals   ############## **/
+		var PEAR_IN_DEBUG_MODE						= true;
+		var PEAR_IS_ADMIN_CP							= false;
+		
+		/** ##############  	Member information   ############## **/
+		PearRegistry.Member.memberID					= 0;
+		PearRegistry.Member.memberName 			    = "";
+		PearRegistry.Member.memberGroup			    = 0;
+		PearRegistry.Member.isAdion			        = 0;
+		PearRegistry.Member.sessionID				= "";
+		PearRegistry.Member.secureToken				= "";
+		
+		/** ##############   Urls   ############## **/
+		PearRegistry.Settings.baseUrl        		= "<?php print $this->baseUrl ?>";
+		PearRegistry.Settings.websiteUrl				= "<?php print $this->absoluteUrl( 'index.php' ) ?>";
+		PearRegistry.Settings.uploadUrl       		= "";
+		PearRegistry.Settings.imagesUrl		        = "<?php print $this->imagesUrl ?>/";
+		
+		/** ##############   Language pack  ############## **/
+		PearRegistry.Settings.selectedLanguageKey	= "<?php print $this->pearRegistry->localization->selectedLanguage['language_key'] ?>";
+		PearRegistry.Settings.languageIsRtl			= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_is_rtl'] ?>" );
+		
+		/** ##############   Templates  ############## **/
+		PearRegistry.Templates['loading_message']	= new Template('<div id="loading-message-layer" class="loading_frame"><img src="<?php print $this->imagesUrl ?>/loadingAnimation.gif" alt="" /> #{loadingText}</div>');
+		
+		//=============================================================
+		//	Initialize
+		//=============================================================
+		
+		PearRegistry.initialize();
+		
+	//]]>
+	</script>
+	
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( PEAR_LANGUAGES_DIRECTORY . $this->pearRegistry->localization->selectedLanguage['language_key'] . '/lang_jscripts.js', 'site' ) ?>"></script>
+</head>
+<body>
+<body id="PearCMSBody">
+<div id="pearsetup-header">
+	<div id="pearsetup-logo">
+		<div id="pearsetup-title">
+			<span class="bold">PearCMS</span>
+		</div>
+		<div id="pearsetup-pearti">
+			<?php print $this->lang['install_wizard'] ?>
+		</div>
+	</div>
+</div>
+<div id="pearsetup-steps-list">
+	<ul>
+	<?php foreach ( array_values($this->pearRegistry->wizardSteps) as $i => $step ): /** Iterate and setup the steps navigation legend **/ ?>
+		<?php if ( empty($step[1]) ) { continue; } /** Do we need to print this step **/ ?>
+		<?php if ( $this->pearRegistry->requestsDispatcher->activeController->stepNumber > $i): /** Previus step? **/ ?>
+			<?php if (! $this->pearRegistry->response->disablePrevButton ): /** If the previus button is not disabled, create links in order to give the user to return into each previus step **/ ?>
+			<li class="prev"><a href="<?php print $this->absoluteUrl('load=' . array_search($step, $this->pearRegistry->wizardSteps)) ?>" class="PearInstallerStepTitle"><?php print ( isset($this->lang[$step[1]]) ? $this->lang[$step[1]] : $step[1] ) ?></a></li>
+			<?php else: ?>
+			<li class="prev"><span class="PearInstallerStepTitle"><?php print ( isset($this->lang[$step[1]]) ? $this->lang[$step[1]] : $step[1] ) ?></span></li>
+			<?php endif; ?>
+		<?php elseif ( $this->pearRegistry->requestsDispatcher->activeController->stepNumber == $i): /** The current step **/ ?>
+		<li class="current"><span class="PearInstallerStepTitle"><?php print ( isset($this->lang[$step[1]]) ? $this->lang[$step[1]] : $step[1] ) ?></span></li>
+		<?php else: /** The next step **/ ?>
+		<li class="next"><span class="PearInstallerStepTitle"><?php print ( isset($this->lang[$step[1]]) ? $this->lang[$step[1]] : $step[1] ) ?></span></li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<div id="pearsetup-sep"></div>
+<div id="pearsetup-content-rect">
+	<div id="pearsetup-content">
+		<h2 class="page-title"><?php print $pageTitle ?></h2>
+		<h3 class="page-subtitle"><?php print $this->lang['version'] ?> <?php print $this->pearRegistry->version ?></h3>
+		<?php if ( count($this->pearRegistry->response->messages) > 0 ): /** Do we got messages to display? **/ ?>
+			<?php foreach ( $this->pearRegistry->response->messages as $message): ?>
+			<div class="standard-message">
+				<span class="title"><?php print $this->lang['standard_message_title'] ?></span>
+				<?php print ( isset($this->lang[$message]) ? $this->lang[$message] : $message ) ?>
+			</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php if ( count($this->pearRegistry->response->warnings) > 0 ): /** Do we got warnings to display? **/ ?>
+			<?php foreach ( $this->pearRegistry->response->warnings as $warning): ?>
+			<div class="warning-message">
+				<span class="title"><?php print $this->lang['warning_message_title'] ?></span>
+				<?php print ( isset($this->lang[$warning]) ? $this->lang[$warning] : $warning ) ?>
+			</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php if ( count($this->pearRegistry->response->errors) > 0 ): /** Do we got errors to display? **/ ?>
+			<?php foreach ( $this->pearRegistry->response->errors as $error): ?>
+			<div class="error-message">
+				<span class="title"><?php print $this->lang['error_message_title'] ?></span>
+				<?php print ( isset( $this->lang[$error]) ? $this->lang[$error] : $error ) ?>
+			</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<form method="post" action="<?php print $nextStepUrl ?>">
+			<?php print $pageContent ?>
+			<div class="actions-bar">
+				<?php if ( ! $this->pearRegistry->response->disablePrevButton ): /** Show the previus button? **/ ?>
+				<a href="<?php print $prevStepUrl ?>" id="PearCMSInstallerPrevButton" class="input-submit"><?php print $this->lang['back_button'] ?></a>
+				<?php endif; ?>
+				<?php if ( ! $this->pearRegistry->response->disableNextButton ): /** Show the next button? **/ ?>
+				<input type="submit" id="PearCMSInstallerNextButton" class="input-submit" value="<?php print $this->lang['next_button'] ?>" />
+				<?php endif; ?>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="pearsetup-footer">
+	<div id="pearsetup-footer-copyrights">
+		&copy; <?php print date('Y') ?> Pear Technology Investments <?php print $this->lang['copyrights_suffix'] ?>
+	</div>
+	<div id="pearsetup-footer-extend">
+		<a href="http://pearcms.com/standards.html" target="_blank"><?php print $this->lang['footer__standards_of_use'] ?></a>
+		&nbsp;&middot;&nbsp;
+		<a href="http://pearcms.com/privacy.html" target="_blank"><?php print $this->lang['footer__privacy_policy'] ?></a>
+		&nbsp;&middot;&nbsp;
+		<a href="http://community.pearcms.com" target="_blank"><?php print $this->lang['footer__community_forums'] ?></a>
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>

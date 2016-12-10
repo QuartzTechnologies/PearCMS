@@ -1,0 +1,38 @@
+<div class="setup-sidebar">
+	<?php printf($this->lang['step_xx_from_xx'], '<span class="stepNumber">' . ($currentStepNumber + 1) . '</span>', '<span class="stepNumber">' . $stepsCount . '</span>') ?><br />
+	<div class="setup-progress-bar">
+		<?php print intval( round(round(((intval($currentStepNumber) + 1) / intval($stepsCount)) * 100)) ) ?>%
+	</div>
+</div>
+<h3 class="setup-section-title">
+	<?php print $sectionTitle ?>
+</h3>
+<div class="clear"></div>
+<div class="setup-section-sep"></div>
+<p>
+	<?php foreach ( $messages as $message): ?>
+	
+	<div class="<?php if ( $message['type'] == 'message'): ?>setup-passed-step<?php else: ?>setup-failed-step<?php endif; ?>">
+		<span><?php print $message['message'] ?></span>
+	</div>
+	<?php endforeach; ?>
+</p>
+<?php if (! $fatalError ): /** Did we got fatal error or we can continue to the next step? **/ ?>
+<p class="setup-auto-submit">
+	<input type="submit" value="<?php print $this->lang['auto_redirection_button'] ?>" class="input-submit" />
+</p>
+<script type="text/javascript">
+//<![CDATA[
+	document.observe('dom:loaded', function() {
+		(function() {
+			$$('form')[0].submit();
+		}).delay(1.5);
+	});
+//]]>
+</script>
+<?php else: ?>
+<div class="error-message">
+	<span class="title"><?php print $this->lang['install_fatal_error_title'] ?></span>
+	<?php print $this->lang['install_fatal_error_description'] ?>
+</div>
+<?php endif; ?>

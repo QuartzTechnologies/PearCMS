@@ -1,0 +1,30 @@
+<form method="POST" action="<?php print $this->absoluteUrl( 'load=register&amp;do=validate-account' ) ?>">
+	<input type="hidden" name="page_referer" value="<?php print $this->request['page_referer'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['validation_form_title'] ?></div>
+		<div class="section-content">
+			<?php if ( ! empty($error) ): ?>
+			<div class="warning-message"><?php print $error ?></div>
+			<?php endif; ?>
+			<table class="width-full">
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['account_id_field_title'] ?> <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" name="uid" class="input-text" value="<?php print $this->request['account_id'] ?>" /></td>
+				</tr>
+				<tr class="row2">
+					<td class="width-fourty">
+						<?php print $this->lang['activation_code_field_title'] ?> <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" name="vid" class="input-text" /></td>
+				</tr>
+			</table>
+        </div>
+		<div class="section-footer right">
+				<input type="submit" class="input-submit" value="<?php print $this->lang['validation_form_submit'] ?>" />
+		</div>
+		<div class="end-page-section"></div>
+	</div>
+</form>

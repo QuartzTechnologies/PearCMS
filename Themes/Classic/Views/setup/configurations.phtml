@@ -1,0 +1,22 @@
+<p>
+	<?php print $this->lang['config_step_instructions'] ?>
+</p>
+<table class="width-full">
+	<tr class="row1">
+		<td class="width-fourty">
+			<?php print $this->lang['display_language'] ?></td>
+		<td class="width-fourty">
+			<select name="selected_language">
+			<?php foreach ( $this->pearRegistry->localization->availableLanguages as $lang ): ?>
+				<option value="<?php print $lang['language_key'] ?>"<?php if( $this->pearRegistry->localization->selectedLanguage['language_key'] == $lang['lang_key'] ): ?> selected="selected"<?php endif; ?>><?php print $lang['language_name'] ?></option>
+			<?php endforeach; ?>
+			</select>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-fourty">
+			<?php print $this->lang['install_use_ssl'] ?></td>
+		<td class="width-fourty">
+			<input type="checkbox" name="enable_installer_ssl" value="1" /></td>
+	</tr>
+</table>

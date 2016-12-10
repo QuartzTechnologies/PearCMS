@@ -1,0 +1,324 @@
+/**
+ *
+ (C) Copyright 2011-2016 Pear Technology Investments, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @copyright	(C) 2011-2012 Pear Technology Investments, Ltd.
+ * @license		http://www.apache.org/licenses/LICENSE-2.0	Apache License 2.0
+ * @version		$Id: PearCPRtl.css 41 2012-03-24 23:34:18 +0200 (Sat, 24 Mar 2012) yahavgb $
+ * @link			http://pearcms.com
+ */
+
+/*****************************************************
+ *
+ *		Admin Control Panel RTL switching style sheet
+ *			PearCMS By Pear Technology Investments, Ltd.
+ *			Authors: Naor Attia, Yahav Gindi Bar
+ *
+ ******************************************************/
+
+body
+{	
+	direction: rtl;
+}
+
+/*****************************************************
+            Global classes
+******************************************************/
+
+.left { text-align: right !important; }
+.right { text-align: left !important; }
+.float-left { float: right !important; }
+.float-right { float: left !important; }
+.description pre { display: inline; direction: ltr; }
+
+/*****************************************************
+            CP Wrapper
+******************************************************/
+#pearcp-header #pearcp-header-content-rect
+{
+	text-align: right;
+}
+
+#pearcp-header #pearcp-header-content-rect h1
+{
+	float: right;
+	background: url(../Images/pearcms-logo-rtl.png) no-repeat;
+}
+
+#pearcp-header #pearcp-header-content-rect #pearcp-header-quick-access
+{
+	float: right;
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+#pearcp-header #pearcp-header-content-rect #pearcp-header-member-bar
+{
+	float: left;
+	margin-left: 45px;
+	margin-right: 0px;
+}
+
+#pearcp-header #pearcp-header-content-rect #pearcp-header-member-bar #pearcp-header-member-avatar
+{
+	float: right;
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
+#pearcp-main-navigation-bar a
+{
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+
+#pearcp-sub-navigation-bar a
+{
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+#pearcp-content-wrapper
+{
+	text-align: right;
+}
+
+#pearcp-footer
+{
+	padding-left: 0px;
+	padding-right: 30px;
+	background: url(../Images/pearti-logo-mini.png) no-repeat;
+	background-position: right top;
+	text-align: right;
+	direction: ltr; /** Only English support. **/
+}
+
+/*****************************************************
+           	Authentication center
+******************************************************/
+
+#pearcp-auth-header
+{
+	background: url(../Images/Authentication/pearcms-logo-rtl.png) no-repeat;
+}
+
+#pearcp-auth-content-rect
+{
+	text-align: right;
+}
+
+#pearcp-auth-content-rect .content table td:first-child
+{
+	padding-left: 20px;
+	padding-right: 0px;
+}
+
+#pearcp-auth-content-rect .content table td:last-child
+{
+	border-left: 0px;
+	border-right: 1px solid #a9a9a9;
+	padding-left: 0px;
+	padding-right: 25px;
+}
+
+.data-block .content ul.selection-list li
+{
+	background-position: 99% 50%;
+	padding-left: 0px;
+	padding-right: 50px;
+}
+
+
+
+.data-block .content .description ul
+{
+	margin-left: 0px;
+	margin-right: 20px;
+}
+
+/*****************************************************
+            Data blocks and other global classes
+******************************************************/
+
+.data-block.left
+{
+	float: right;
+	width: 600px;
+}
+
+.data-block.right
+{
+	float: right;
+	width: 280px;
+	margin-left: 0px;
+	margin-right: 6px;
+}
+
+.table-with-sidebar td:first-child
+{
+	width: 70%;
+	padding-left: 8px;
+	padding-right: 0px;
+}
+
+/*****************************************************
+            Misc
+******************************************************/
+
+div#pearcms-global-message
+{
+	background-position: 1%;
+}
+
+.data-block div.content ul#pearcp-dashboard-quick-access li
+{
+	margin-left: 0px;
+	margin-right: 25px;
+}
+
+span.yesnocontrols-yes
+{
+	border: 1px solid #6cb94f;
+	border-left: 0px;
+	
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-moz-border-radius-bottomright: 6px;
+}
+
+span.yesnocontrols-no
+{
+	border: 1px solid #c0250a;
+	border-right: 0px;
+	
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 0px;
+}
+
+#pearcp-header-warning-message
+{
+	text-align: right;
+}
+
+#pearcp-header-warning-message .title
+{
+	margin-left: 0px;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+#pearcp-header-warning-message .content
+{
+	margin-left: 0px;
+	margin-right: 10px;
+}
+
+.security-center-tool-good a,
+.security-center-tool-unsure a,
+.security-center-tool-bad a
+{
+	float: left;
+}
+
+.pearcp-tabs-wrapper
+{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	clear: none;
+	list-style: none;
+}
+
+.pearcp-tabs-wrapper li {
+	float: right;
+	margin-left: 0px;
+	margin-right: 1px;
+}
+
+.pearcp-tabs-wrapper li.active
+{
+	float: right;
+}
+
+
+/*****************************************************
+            About this PearCMS!
+******************************************************/
+
+#about-this-pearcms-versions-container #pearcms-latest-version
+{
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-left: 1px !important;	
+	
+	/** Kill the border defines in Default.css **/
+	border-right: 0px !important;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 0px;	
+}
+
+#about-this-pearcms-versions-container #pearcms-current-version
+{
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-moz-border-radius-bottomright: 6px;
+	
+	/** Kill the border defines in Default.css **/
+	border-right: 1px !important;
+	border-left: 0px !important;	
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;	
+}
+
+
+/*****************************************************
+            Pagination
+******************************************************/
+
+div.pagination-wrapper
+{
+	direction: ltr;
+}
+
+div.pagination-wrapper a.left
+{
+	float: right;
+}
+
+div.pagination-wrapper a.right
+{
+	float: left;
+}

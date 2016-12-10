@@ -1,0 +1,52 @@
+<?php if ( $allowToVote ): /** Are we going to vote? **/ ?>
+<form method="post" action="<?php print $this->absoluteUrl( 'load=polls&amp;do=poll-vote&amp;poll_id=' . $pageData['poll_id']) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+<div class="page-section">
+	<div class="section-title PollQuestion">
+		<?php print $pageData['poll_question'] ?>
+		<?php if ( $showPollVoters ): /** Add voters results metadata if we need to **/ ?>
+		<div class="metadata clear">'
+			<?php print sprintf($this->lang['poll_voters_count'], $pageData['poll_total_votes']) ?>
+		</div>
+		<?php endif; ?>
+	</div>
+	<div class="section-content">
+		<ul>
+			<?php print $pollChoices ?>
+		</ul>
+		<div class="actions-bar">
+			<div class="right">
+				<input type="submit" class="input-submit" value="<?php print $this->lang['set_poll_vote_submit'] ?>" /></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+</form>
+<?php else: ?>
+<div class="page-section">
+	<div class="section-title PollQuestion">
+		<?php print $pageData['poll_question'] ?>
+		<?php if ( $showPollVoters ): /** Add voters results metadata if we need to **/ ?>
+		<div class="metadata clear">'
+			<?php print sprintf($this->lang['poll_voters_count'], $pageData['poll_total_votes']) ?>
+		</div>
+		<?php endif; ?>
+	</div>
+	<div class="section-content">
+		<ul>
+			<?php print $pollChoices ?>
+		</ul>
+		<?php if ( $memberVoted AND $this->member['can_delete_poll_vote'] ): /** Can we remove our vote? **/ ?>
+		<div class="actions-bar">
+			<div class="right">
+				<form method="post" action="<?php print $this->absoluteUrl( 'load=polls&amp;do=remove-poll-vote&amp;poll_id=' . $pageData['poll_id']) ?>">
+					<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+					<input type="submit" class="input-submit" value="<?php print $this->lang['poll_remove_vote'] ?>" />
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<?php endif; ?>
+	</div>
+</div>
+<?php endif; ?>

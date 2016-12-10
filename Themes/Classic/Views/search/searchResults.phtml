@@ -1,0 +1,23 @@
+<div class="page-section">
+	<div class="section-title"><?php printf($this->lang['search_results_form_title'], $searchKeywords) ?></div>
+	<div class="section-content">
+		<div class="information-message"><?php printf($this->lang['search_results_form_desc'], $searchKeywords, $resultsCount) ?></div>
+		<?php if ( count($results) > 0 ): ?>
+		<table class="width-full">
+		<?php foreach ( $results as $i => $result ): ?>
+			<tr class="row<?php print ( $i % 2 == 0 ? '1' : '2' ) ?>">
+				<td class="width-ten"><img src="<?php print $this->imagesUrl . '/' . ( ! empty($result['page_password']) ? 'page_locked' : 'page' ) ?>.png" alt="" /></td>
+				<td class="width-eighty">
+					<a href="<?php print $this->absoluteUrl( 'load=content&amp;page_id=' . $result['page_id'] ) ?>"><?php print $result['page_name'] ?></a>
+					<?php if ( $result['page_description'] ): /** Page description **/ ?>
+						<div class="description"><?php print $result['page_description'] ?></div>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php endif; ?>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+<?php print $pages; ?>

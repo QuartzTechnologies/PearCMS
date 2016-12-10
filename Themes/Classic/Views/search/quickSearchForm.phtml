@@ -1,0 +1,10 @@
+<form method="post" action="<?php print $this->absoluteUrl( 'load=search&amp;do=results' ) ?>">
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<input type="hidden" name="search_directories_by_id" value="<?php print $searchAtDirectories ?>" />
+	<input type="text" name="search_keywords" class="input-text width-ninty-five" placeholder="<?php print $this->lang['search_textbox_placeholder'] ?>" />
+	<div class="right">
+		<a href="<?php print $this->absoluteUrl( 'load=search&amp;do=form ') ?>"><?php print $this->lang['advance_search_link'] ?></a>
+		&nbsp;&middot;&nbsp;
+		<input type="submit" class="input-submit" value="<?php print $this->lang['quick_search_submit'] ?>" />
+	</div>
+</form>

@@ -1,0 +1,21 @@
+<?php
+//------------------------------
+//	Create unique id that will serve us in this choice
+//	why? because we can have the same poll at more than one place in the same page
+//	so the "label" won't know to which one to refer
+//------------------------------
+
+$uniqueId = microtime();
+
+?>
+<li class="poll-choice row<?php print ($choiceNumber % 2 == 0 ? '1' : '2' ) ?>">
+	<?php if ( $allowToVote ): /** Can we vote? **/ ?>
+	<input type="radio" name="voted_choice" id="poll_choice_<?php print $uniqueId ?>" value="<?php print $choiceNumber ?>" /> <label for="poll_choice_<?php print $uniqueId ?>"><?php print $choiceText ?></label>
+	<?php else: ?>
+	<span class="poll-answer"><?php print $choiceText ?></span>
+	<?php endif; ?>
+	<?php if ( $showPollVoters ): /** Can we view the poll voters results? **/ ?>
+	<span class="votes"><?php printf($this->lang['poll_votes_count_textual'], $pollVotesCount, $pollVotesPrecents) ?></span>
+	<p class="progress-bar page_poll"><span style="width: <?php print $pollVotesPrecents; ?>%;"><span><?php printf($this->lang['poll_vote_percentage'], $pollVotesPrecents) ?></span></p>
+	<?php endif; ?>
+</li>

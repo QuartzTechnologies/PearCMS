@@ -1,0 +1,45 @@
+<?php print $this->renderView('cp_global', 'dataTable', array(
+	'title'						=>	$this->lang['sql_scheme_manage_form_title'],
+	'description'				=>	$this->lang['sql_scheme_manage_form_desc'],
+	'headers'					=>	array(
+		$this->lang['table_name_field'],
+		$this->lang['table_rows_count_field'],
+		$this->lang['table_bytes_field'],
+		$this->lang['table_export_field'],
+		$this->lang['check_all_field'] . '&nbsp;<input type="checkbox" onchange="PearSQLManagerUtils.changeCheckStatus(this.checked);" />'
+	),
+	'rows'						=>	$dataTableRows
+)); ?>
+<form method="post" action="<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=apply-action' ) ?>">
+	<input type="hidden" name="authsession" value="<?php print $this->request['authsession'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<div class="data-block">
+		<div class="content">
+			<div class="float-right">
+				<select name="action">
+					<optgroup label="<?php print $this->lang['select_action'] ?>">
+						<option value="backup"><?php print $this->lang['backup_selected_tables'] ?></option>
+						<option value="truncate"><?php print $this->lang['truncate_selected_tables'] ?></option>
+						<option value="drop"><?php print $this->lang['drop_selected_tables'] ?></option>
+					</optgroup>
+				</select>
+				<input type="submit" value="<?php print $this->lang['apply_on_selected'] ?>" class="input-submit" />
+			</div>
+			<div class="float-left">
+				<input type="button" class="input-submit" onclick="PearSQLManagerUtils.changeCheckStatus(true);" value="<?php print $this->lang['select_all'] ?>" />
+				&nbsp;&middot;&nbsp;
+				<input type="button" class="input-submit" onclick="PearSQLManagerUtils.changeCheckStatus(false);" value="<?php print $this->lang['deselect_all'] ?>" />
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</form>
+<?php print $this->renderView('cp_global', 'standardForm', array(
+		'action'				=>	'load=sql_tools&amp;do=execute-query',
+		'title'				=>	$this->lang['run_query_form_title'],
+		'description'		=>	$this->lang['run_query_form_desc'],
+		'fields'				=>	array(
+			'<div class="center">' . $this->textareaField('q', null, array( 'style' => 'width: 85%; height: 250px; direction: ltr;' )) . '</div>'
+		),
+		'submitButtonValue'	=>	$this->lang['run_query_submit']
+)) ?>

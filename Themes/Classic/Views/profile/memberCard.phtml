@@ -1,0 +1,55 @@
+<div class="page-section">
+	<div class="section-content">
+		<div id="pear-member-card">
+			<table>
+				<tr>
+					<td style="width: 50px;" class="middle">
+						<img src="<?php print $memberData['member_avatar'] ?>" alt="" style="width: <?php print $memberData['_member_avatar_sizes']['widht'] ?>px; height: <?php print $memberData['_member_avatar_sizes']['height'] ?>px;" /></li>
+					<td class="top">
+						<h3><?php print $memberData['member_name'] ?></h3>
+						<table id="pear-member-card-profile-attributes">
+							<tr>
+								<th><?php print $this->lang['profile_personal_info_title'] ?></th>
+								<th><?php print $this->lang['profile_contact_info_title'] ?></th>
+							</tr>
+							<tr>
+								<td>
+									<ul style="margin-bottom: 5px;">
+										<li>
+											<?php printf($this->lang['member_join_date'], $memberData['member_join_date']) ?></li>
+										<li>
+											<?php printf($this->lang['member_last_visit'], $memberData['member_last_visit']) ?></li>
+										<li>
+											<?php printf($this->lang['member_last_activity'], $memberData['member_last_activity']) ?></li>
+										<li>
+											<?php printf($this->lang['member_group'], $memberData['member_group_formatted']) ?></li>
+										<li>
+											<?php printf($this->lang['member_gender'], $memberData['member_gender']) ?></li>
+									</ul>
+								</td>
+								<td>
+									<ul>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/email.png" alt="" /> <a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message&amp;receiver_name=' . urlencode($memberData['member_name']) ) ?>"><?php print $this->lang['contact_by_pm'] ?></a></li>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/Profile/profile-website.png" alt="" /> <span><?php print $memberData['member_personal_website'] ?></span></li>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/Profile/profile-icq.png" alt="" /> <span><?php print $memberData['member_icq'] ?></span></li>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/Profile/profile-msn.png" alt="" /> <span><?php print $memberData['member_msn'] ?></span></li>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/Profile/profile-skype.png" alt="" /> <span><?php print $memberData['member_skype'] ?></span></li>
+										<li>
+											<img src="<?php print $this->imagesUrl ?>/Icons/Profile/profile-aim.png" alt="" /> <span><?php print $memberData['member_aim'] ?></span></li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<div id="pear-member-card-footer"></div>
+		</div>
+	</div>
+</div>
+	

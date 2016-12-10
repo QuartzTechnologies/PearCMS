@@ -1,0 +1,76 @@
+<div class="page-section">
+	<div class="section-title">
+		<?php print $this->lang['usercp_dashboard_form_title'] ?>
+			<div class="dropdown_list_head float-right" id="usercp_actions_menu_head">
+				<?php print $this->lang['usercp_actions_list_head'] ?></div>
+    		</div>
+	<div class="section-content">
+		<?php print $this->lang['usercp_dashboard_welcome_message'] ?>
+		<table class="width-full">
+			<tr class="row1">
+				<td class="width-fourty">
+					<?php print $this->lang['member_name'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->member['group_prefix'] . $this->member['member_name'] . $this->member['group_suffix'] ?></td>
+			</tr>
+			<tr class="row2">
+				<td class="width-fourty">
+					<?php print $this->lang['member_full_name'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->member['member_first_name'] . ' ' . $this->member['member_last_name'] ?></td>
+			</tr>
+			<tr class="row1">
+				<td class="width-fourty">
+					<?php print $this->lang['member_email'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->member['member_email'] ?></td>
+			</tr>
+			<tr class="row2">
+				<td class="width-fourty">
+					<?php print $this->lang['member_join_date'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->pearRegistry->getDate($this->member['member_join_date']) ?></td>
+			</tr>
+			<tr class="row1">
+				<td class="width-fourty">
+					<?php print $this->lang['member_last_activity'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->pearRegistry->getDate($this->member['member_last_activity']) ?></td>
+			</tr>
+			<tr class="row2">
+				<td class="width-fourty">
+					<?php print $this->lang['member_last_visit'] ?></td>
+				<td class="width-sixty">
+					<?php print $this->pearRegistry->getDate($this->member['member_last_visit']) ?></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="page-section">
+	<div class="section-title">
+		<?php print $this->lang['usercp_personal_notes_form_title'] ?></div>
+	<div class="section-content">
+		<form method="post" action="<?php print $this->absoluteUrl( 'load=usercp&amp;do=save-personal-notes' ) ?>">
+			<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+			<?php print $this->renderView('global', 'wysiwygEditor', array( 'editorName' => 'member_notes', 'editorContent' => $this->member['member_notes'] )) ?>
+			<div class="actions-bar">
+				<div class="right">
+					<input type="submit" value="<?php print $this->lang['save_personal_notes_button'] ?>" class="input-submit" /></div>
+				<div class="clear"></div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="dropdown_menu_wrapper" id="usercp_actions_menu">
+	<div class="title"><?php print $this->lang['usercp_actions_list_head'] ?></div>
+	<a href="<?php print $this->absoluteUrl( 'load=usercp&amp;do=dashboard' ) ?>"><?php print $this->lang['view_dashboard_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=usercp&amp;do=personal-information' ) ?>"><?php print $this->lang['change_personal_details_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=usercp&amp;do=change-name' ) ?>"><?php print $this->lang['change_email_details_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=usercp&amp;do=change-password' ) ?>"><?php print $this->lang['change_password_details_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=usercp&amp;do=modify-avatar' ) ?>"><?php print $this->lang['change_avatar_action'] ?></a>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+	PearRegistry.Menus.register( new PearMenu( 'usercp_actions_menu_head', 'usercp_actions_menu' ) );
+//]]>
+</script>

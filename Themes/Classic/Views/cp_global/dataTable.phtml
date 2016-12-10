@@ -1,0 +1,74 @@
+<?php
+/**
+ * Parameters:
+ * 	Required:
+ *  - String $title:					The form title (display title)
+ *  
+ *  Optional:
+ *  - Array $actionsMenu:			Array contains actions for the side-menu as arrays. (e.g.: array( array('index.php?foo=bar', 'Action 1'), array('index.php?bar=baz', 'Action 2', 'add.png' ) ) [optional]
+ *  - Array $headers:				Array contains the table headers (<th></th>) to set. The items can be localized strings or array contains localized string and width (e.g. array('foo', 'bar', array('baz', 30)) creates <th style="width: auto;">foo</th><th style="width: auto;">bar</th><th style="width: 30%;">baz</th> ) 
+ *  - Array $rows:					Array contains the table rows, each item is an array contains the item to print in the row (e.g. array('foo', 'bar', 'baz') will print <td>foo</td><td>bar</td><td>baz</td>)
+ *  									If you wish to specifiy specific colspan, use an array contains the <td> tag text and the colspan (e.g. array('foo', array('bar', 2), 'baz') will print <td>foo</td><td colspan="2">bar</td><td>baz</td>)
+ *  - String $description:			The form description [optional]
+ *  - String $noResultsMessage:		An alternate message to display in case there're no results (rows) to display.
+ */
+?>
+<div class="data-block">
+	<div class="title" id="PearCPTable_<?php print ++$this->tablesCount ?>">
+		<?php print ( isset($this->lang[$title]) ? $this->lang[$title] : $title ) ?>
+		<?php if ( count($actionsMenu) > 0 ): /** Do we got special actions? **/ ?>
+			<div class="float-right">
+			<?php foreach ( $actionsMenu as $i => $menu ): ?>
+				<a href="<?php print $this->absoluteUrl($menu[0]) ?>">
+					<?php if ( isset($menu[2]) ): /** Do we got image? **/ ?>
+					<img src="Images/<?php print $menu[2] ?>" alt="" /> <?php print $menu[1] ?>
+					<?php else: ?>
+					<?php print $menu[1] ?>
+					<?php endif; ?>
+				</a>
+				<?php if ( $i < (count($actionsMenu) - 1) ): ?>
+				&nbsp;&middot;&nbsp;
+				<?php endif; ?>
+			<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+	</div>
+	<div class="content gradient"<?php if ($toggled): ?> style="display: none;"<?php endif; ?>>
+		<?php if ( ! empty($description) ): ?>
+		<div class="information-message"><?php print ( isset($this->lang[$description]) ? $this->lang[$description] : $description ) ?></div>
+		<?php endif; ?>
+		<table id="PearCP_Table_<?php print $this->tablesCount ?>" class="gradient-table width-full">
+		<?php if ( is_array($headers) AND count($headers) > 0 ): ?>
+			<tr class="group-header">
+			<?php foreach ( $headers as $row ): /** Iterating and print the table headers **/ ?>
+				<?php if ( is_array($row) AND count($row) == 2 ): /** We got localized string or array contains string and width? **/ ?>
+				<th style="width: <?php print intval($row[1]) ?>%"><?php print ( empty($row[0]) ? '&nbsp;' : ( isset($this->lang[$row[0]]) ? $this->lang[$row[0]] : $row[0] ) ) ?></th>
+				<?php else: ?>
+				<th style="width: <?php print round((1 / count($headers)) * 100) ?>%"><?php print ( empty($row) ? '&nbsp;' : ( isset($this->lang[$row]) ? $this->lang[$row] : $row ) ) ?></th>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php if ( count($rows) > 0 ): /** Do we got any result? **/ ?>
+		<?php foreach ( $rows as $i => $row ): /** Iterate and print the results **/ ?>
+			<tr class="row<?php print ($i % 2 == 0 ? 1 : 2) ?>">
+			<?php foreach ($row as $td): ?>
+				<?php if ( is_array($td) AND count($td) == 2 ): /** We got colspan? **/ ?>
+				<td colspan="<?php print $td[1] ?>"><?php print $td[0] ?></td>
+				<?php else: ?>
+				<td style="width: <?php print ( is_array($headers[$i]) ? $headers[$i][1] : 'auto' ) ?>"><?php print $td ?></td>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			</tr>
+		<?php endforeach; ?>
+		<?php else: /** No results, display a user-friendly message **/ ?>
+		<tr>
+			<td <?php if ( is_array($headers) ): ?>colspan="<?php print count($headers) ?>"<?php endif; ?> class="center">
+				<div class="warning-message center" style="margin: 3px auto; width: 60%; color: #ba000c; font-style: italic;">
+					<?php print ( $noResultsMessage ? ( $this->lang[$noResultsMessage] ? $this->lang[$noResultsMessage] : $noResultsMessage) : $this->lang['no_results_found'] ) ?></div>
+			</td>
+		</tr>
+		<?php endif; ?>
+		</table>
+	</div>
+</div>

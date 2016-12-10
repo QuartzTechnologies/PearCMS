@@ -1,0 +1,16 @@
+<?php $this->addJSFile( '/ThirdParty/lightbox/lightbox.js' ) ?>
+<?php $this->addCSSFile( '/Client/JScripts/ThirdParty/lightbox/lightbox.css', 'site' ) ?>
+<script type="text/javascript">
+//<![CDATA[
+	window.LightboxOptions = {
+		fileLoadingImage:        '<?php print $this->imagesUrl ?>/Icons/lightbox/loading.gif',     
+		fileBottomNavCloseImage: '<?php print $this->imagesUrl ?>/Icons/lightbox/closelabel.gif',
+		overlayOpacity: 0.8,
+	    animate: true,
+	    resizeSpeed: 7,
+	    borderSize: 10,
+		labelImage: "Image",
+		labelOf: "<?php print $this->lang['off'] ?>"
+	};
+//]]>
+</script>

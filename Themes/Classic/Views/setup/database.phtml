@@ -1,0 +1,46 @@
+<p>
+	<?php print $this->lang['installer_step5_instructions'] ?>
+</p>
+
+<table class="data-table">
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['database_host_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text ltr" name="db_host" value="<?php print $dbHost ?>" />
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['database_name_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text ltr" name="db_name" value="<?php print $dbName ?>" />
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['database_user_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text ltr" name="db_user" value="<?php print $dbUser ?>" />
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['database_pass_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="password" class="input-text ltr" name="db_pass" value="" />
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['database_prefix_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text ltr" name="db_prefix" value="<?php print $dbPreffix ?>" />
+		</td>
+	</tr>
+</table>

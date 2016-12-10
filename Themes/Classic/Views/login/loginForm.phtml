@@ -1,0 +1,36 @@
+<form method="POST" action="<?php print $this->absoluteUrl( 'load=login&amp;do=connect-member' ) ?>">
+	<input type="hidden" name="page_referer" value="<?php print $this->request['HTTP_REFERER'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['login_form_title'] ?></div>
+		<div class="section-content">
+			<?php if(! empty($error) ): ?>
+			<div class="warning-message"><?php print $error ?></div>
+			<?php endif; ?>
+			<table class="width-full">
+				<tr>
+					<td class="width-sixty">
+						<?php print $this->lang['member_email_field_title'] ?></td>
+					<td class="width-fourty">
+						<input type="text" class="input-text" name="member_email" value="<?php print $this->request['member_email'] ?>" /></td>
+				</tr>
+				<tr>
+					<td class="width-sixty">
+						<?php print $this->lang['password_field_title'] ?></td>
+					<td class="width-fourty">
+						<input type="password" class="input-text" name="member_password" /></td>
+				</tr>
+				<tr>
+					<td class="width-sixty">
+						<?php print $this->lang['rememberme_field_title'] ?></td>
+					<td class="width-fourty">
+						<input type="checkbox" name="remember_me" value="1" /></td>
+				</tr>
+			</table>
+		</div>
+		<div class="section-footer right">
+			<a href="<?php print $this->absoluteUrl( 'load=login&amp;do=recover-password' ) ?>"><?php print $this->lang['forgot_pass_link'] ?></a>&nbsp;&middot;&nbsp;<input type="submit" class="input-submit" value="<?php print $this->lang['sign_in_submit'] ?>" />
+		</div>
+		<div class="end-page-section"></div>
+	</div>
+</form>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php print $this->settings['site_charset'] ?>">
+</head>
+<body>
+<?php if (! empty($this->lang['email_header']) ): ?>
+<h1><?php print $this->lang['email_header'] ?></h1>
+<?php endif; ?>
+<?php print $message; ?>
+<?php if (! empty($this->lang['email_footer']) ): ?>
+<br />
+<br />
+<p><?php print $this->lang['email_footer'] ?></p>
+<?php endif; ?>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<?php if ( count($items) > 0 ): /** Do we got items? **/ ?>
+<ul>
+<?php foreach ( $items as $item ): ?>
+	<li class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+	<?php if ( $item['page_id'] ): /** This is a page?: **/ ?>
+		<a href="<?php print $this->absoluteUrl('load=content&amp;page_id=' . $item['page_id']) ?>" class="block" title="<?php print $item['page_name'] ?>"><?php print $item['page_name'] ?></a>
+	<?php else: ?>
+		<a href="<?php print $this->absoluteUrl('load=content&amp;page_id=' . $item['page_id']) ?>" class="block" title="<?php print $item['directory_name'] ?>"><?php print $item['directory_name'] ?></a>
+	<?php endif; ?>
+	</li>
+<?php endforeach; ?>
+</ul>
+<?php endif; ?>

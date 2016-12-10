@@ -1,0 +1,12 @@
+<?php $this->addJSFile( '/ThirdParty/ckeditor/ckeditor.js' ) ?>
+<textarea id="wysiwyg_<?php print $editorName ?>" name="<?print $editorName ?>" class="input-text" rows="10" cols="60"><?php print $editorContent ?></textarea>
+<script type="text/javascript">
+//<![CDATA[
+
+	CKEDITOR.config.customConfig  = '<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/ckeditor/pearcms_config.js' ) ?>';
+	PearRegistry.TextEditor.initializeEditor("wysiwyg_<?php print $editorName ?>", {
+		type:		'PearBasic'
+	});
+	
+//]]>
+</script>

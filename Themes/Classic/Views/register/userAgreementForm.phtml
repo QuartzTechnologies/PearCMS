@@ -1,0 +1,20 @@
+<form method="POST" action="<?php print $this->absoluteUrl( 'load=register&amp;do=register-form' ) ?>">
+	<input type="hidden" name="page_referer" value="<?php print $this->request['page_referer'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['register_form_terms_title'] ?></div>
+		<div class="section-content">
+			<div style="text-align: center; margin: auto;">
+				<div id="license-agreement-box">
+					<?php print $this->lang['register_terms_form'] ?>
+				</div>	
+			</div>
+        </div>
+		<div class="section-footer center">
+			<div class="left">
+				<input type="checkbox" name="terms_agreement_confirmation" id="terms_agreement_confirmation" value="1" /> <label for="terms_agreement_confirmation"><?php print $this->lang['register_form_confirm'] ?></label></div><br />
+			<input type="button" class="input-submit" onclick='window.location.href = "<?php print $this->request['page_referer'] ?>"' value="<?php print $this->lang['register_terms_not_agree_button'] ?>" />&nbsp;&middot;&nbsp;<input type="submit" class="input-submit" value="<?php print $this->lang['register_terms_agree_button'] ?>" />
+		</div>
+		<div class="end-page-section"></div>
+	</div>
+</form>

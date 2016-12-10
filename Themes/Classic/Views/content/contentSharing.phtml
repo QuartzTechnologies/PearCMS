@@ -1,0 +1,18 @@
+<?php
+
+/** Encoding the given params **/
+$urlAddress			=	urlencode( $this->absoluteUrl('load=content&amp;page_id=' . $pageData['page_id']) );
+$contentTitle		=	urlencode( $pageData['page_title'] );
+
+?>
+<a href="http://www.facebook.com/sharer.php?u=<?print $urlAddress ?>&amp;t=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/facebook.png" alt="" /></a>
+<a href="http://twitter.com/intent/tweet?status=<?print $urlAddress ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/twitter.png" alt="" /></a>
+<a href="http://del.icio.us/post?v=2&amp;url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/delicious.png" alt="" /></a>
+<a href="http://reddit.com/submit?url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/reddit.png" alt="" /></a>
+<a href="http://www.stumbleupon.com/submit?url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/stumbleupon.png" alt="" /></a>
+<a href="http://www.myspace.com/Modules/PostTo/Pages/?u=<?print $urlAddress ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/myspace.png" alt="" /></a>
+<a href="http://digg.com/submit?url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/digg.png" alt="" /></a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>&amp;source=<?php print urlencode($this->settings['site_name']) ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/linkedin.png" alt="" /></a>
+<a href="http://www.google.com/reader/link?url=<?print $urlAddress ?>&amp;title=<?php print $contentTitle ?>" target="_blank"><img src="<?php print $this->imagesUrl ?>/Icons/Sharing/buzz.png" alt="" /></a>
+<?php $this->addJSFile('https://apis.google.com/js/plusone.js') ?>
+<g:plusone count="false" size="small"></g:plusone>

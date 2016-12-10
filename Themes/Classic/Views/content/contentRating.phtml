@@ -1,0 +1,13 @@
+<?php $this->addJSFile('/PearRate.js') ?>
+<div id="PearContentRating"></div>
+<script type="text/javascript">
+//<![CDATA[
+
+	new PearRating("PearContentRating", "<?php print $this->absoluteUrl( 'load=content&amp;do=rate-page&amp;page_id=' . $pageData['page_id'] ) ?>", {
+		currentRate:				parseInt( "<?php print $currentContentRate ?>" ),
+		userRateValue:			parseInt( "<?php print $myRateValue ?>" ),
+		allowRate:				parseInt( "<?php print $canRateContent ?>" )
+	});
+	
+//]]>
+</script>

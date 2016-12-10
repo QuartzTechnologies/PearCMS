@@ -1,0 +1,78 @@
+<h1 class="page-title"><?php printf($this->lang['directory_index_form_title'], $directoryData['directory_name']) ?></h1>
+<?php if ( count($availableDirectories) < 1 AND count($availablePages) < 1 ): /** This directory is empty? (no pages AND directories) **/ ?>
+<div class="warning-message">
+	<?php print $this->lang['directory_no_items'] ?>
+</div>
+<?php else: ?>
+	<?php if ( count($availableDirectories) > 0 ): /** We got neasted directories? **/ ?>
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['sub_directories_title'] ?></div>
+		<div class="section-content">
+			<table class="width-full">
+			<?php foreach ($availableDirectories as $directory ): ?>
+				<tr class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+					<td style="width: 10%;">
+						<img src="<?php print $this->imagesUrl ?>/folder.png" /></td>
+					<td style="width: 90%;">
+						<a href="<?php print $this->absoluteUrl('load=content&amp;directory_id=' . $directory['directory_id']) ?>"><?php print $directory['directory_name'] ?></a>
+						<?php if (! empty($directory['directory_description']) ): /** We got description? **/ ?>
+						<div class="description"><?php print $directory['directory_description'] ?></div>
+						<?php endif; ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</table>
+		</div>
+		<div class="PageSectionEnd"></div>
+	</div>
+	<?php endif; ?>
+	<?php if ( count($availablePages) > 0 ): /** We got pages? **/ ?>
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['pages_list_title'] ?></div>
+		<div class="section-content">
+			<table class="width-full">
+			<?php foreach ($availablePages as $page): /** Iterate and display the pages **/ ?>
+				<tr class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+					<td style="width: 10%;">
+						<img src="<?php print $this->imagesUrl ?>/page.png" /></td>
+					<td style="width: 90%;">
+						<a href="<?php print $this->absoluteUrl( 'load=content&amp;page_id=' . $page['page_id'] . '&amp;search_keywords=' . urlencode($this->pearRegistry->request['search_keywords']) ) ?>"><?php print $page['page_name'] ?></a>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+			<?php if ( $directoryData['directory_allow_search'] ): /** Can we search in this directory? **/ ?>
+			<div class="actions-bar">
+				<form method="post" action="<?php print $this->absoluteUrl('load=content&amp;directory_id=' . $directoryData['directory_id']) ?>">
+					<div class="left">
+						<?php print $this->lang['search_pages_that'] ?>
+						<select name="search_text_type">
+							<option value="starts"><?php print $this->lang['search_type_starts'] ?></option>
+							<option value="ends"><?php print $this->lang['search_type_ends'] ?></option>
+							<option value="contains"><?php print $this->lang['search_type_contains'] ?></option>
+							<option value="exact"><?php print $this->lang['search_type_exact'] ?></option>
+							<option value="exclude"><?php print $this->lang['search_type_exclude'] ?></option>
+						</select> <input type="text" name="search_keywords" value="<?php print $this->request['search_keywords'] ?>" class="input-text" />
+						<?php print $this->lang['search_sort_order'] ?>
+						<select name="search_sort_order_field">
+							<option value="page_name"><?php print $this->lang['search_sort_type_page_name'] ?></option>
+							<option value="page_creation_date"><?php print $this->lang['search_sort_type_page_creation_date'] ?></option>
+							<option value="page_last_updated"><?php print $this->lang['search_sort_type_page_last_updated'] ?></option>
+						</select>
+						<select name="search_sort_order">
+							<option value="asc"><?php print $this->lang['search_sort_order_asc'] ?></option>
+							<option value="desc"><?php print $this->lang['search_sort_order_desc'] ?></option>
+						</select>
+					</div>
+					<div class="right">
+						<input type="submit" value="<?php print $this->lang['run_quick_search_button'] ?>" class="input-submit" /></div>
+				</form>
+				<div class="clear"></div>
+			</div>
+			<?php endif; ?>
+		</div>
+		<div class="PageSectionEnd"></div>
+	</div>
+	<?php endif; ?>
+	<?php print $pages; ?>
+<?php endif;?>

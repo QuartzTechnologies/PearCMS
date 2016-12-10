@@ -1,0 +1,157 @@
+<?php $this->addJSFile('/Setup/Pear.Validation.js') ?>
+<p>
+	<?php print $this->lang['installer_step7_instructions'] ?>
+</p>
+<div class="information-message">
+	<span class="title"><?php print $this->lang['installer_step7_note_title'] ?></span>
+	<?php print $this->lang['installer_step7_note_desc'] ?>
+</div>
+<table class="data-table" id="PropertiesTable">
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['installer_site_url'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="base_url_label">
+			<?php print $websiteUrl ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['installer_site_email'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="site_admin_email_address_label">
+			<?php print $adminEmail ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['installer_upload_path'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="upload_path_label">
+			<?php print $uploadPath ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty"><?php print $this->lang['database_host_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="db_host_label">
+			<?php print $dbHost ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['database_name_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="db_name_label">
+			<?php print $dbName ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty"><?php print $this->lang['database_user_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="db_user_label">
+			<?php print $dbUser ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['database_pass_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="db_pass_label">
+			<?php print $dbPass ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty"><?php print $this->lang['database_prefix_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="db_prefix_label">
+			<?php print $dbPreffix ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['account_mail_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="account_email_label">
+			<?php print $accountEmail ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty"><?php print $this->lang['account_name_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="account_name_label">
+			<?php print $accountName ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['account_pass_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="account_password_label">
+			<?php print $accountPass ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty"><?php print $this->lang['account_secret_question_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="secret_question_label">
+			<?php print $secretQuestion ?>
+			</span>
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty"><?php print $this->lang['account_secret_answer_field'] ?></td>
+		<td class="width-fourty pointer">
+			<span id="secret_answer_label">
+			<?php print $secretAnswer ?>
+			</span>
+		</td>
+	</tr>
+</table>
+<div id="hiddenInputs"></div>
+<script type="text/javascript">
+//<![CDATA[
+	
+	//-----------------------------
+	//	Setup PearRegistry templates & languages
+	//-----------------------------
+	PearRegistry.Templates['property_editor_popup']				=	new Template('<div id="PropertyEditorWrapper" class="popup-wrapper"><div class="popup-title"><?php print $this->lang['edit_title'] ?></div><input type="text" id="PropertyEditorTextbox" value="" class="input-text" /><input type="button" id="PropertyEditorCancelButton" value="<?php print $this->lang['cancel'] ?>" class="input-submit" /><input type="button" id="PropertyEditorSubmitButton" value="<?php print $this->lang['apply'] ?>" class="input-submit" /></div></div>');
+	PearRegistry.Language['js_edit_cancel']						=	"<?php print $this->lang['js_edit_cancel'] ?>";
+	PearRegistry.Language['js_field_empty']						=	"<?php print $this->lang['js_field_empty'] ?>";
+	PearRegistry.Language['js_empty_field_label']				=	"<?php print $this->lang['empty_field_label'] ?>";
+	
+	//-----------------------------
+	//	Initialize
+	//-----------------------------
+	PearSetupValidationUtils.initialize();
+	
+	//-----------------------------
+	//	Register password-hidden fields
+	//-----------------------------
+	PearSetupValidationUtils.passwordContainers.push( 'db_pass_label' );
+	PearSetupValidationUtils.passwordContainers.push( 'account_password_label' );
+	PearSetupValidationUtils.passwordContainers.push( 'secret_answer_label' );
+	
+	//-----------------------------
+	//	Register required fields
+	//-----------------------------
+	PearSetupValidationUtils.requiredFields.push( 'base_url_label' );
+	PearSetupValidationUtils.requiredFields.push( 'site_admin_email_address_label' );
+	PearSetupValidationUtils.requiredFields.push( 'upload_path_label' );
+	PearSetupValidationUtils.requiredFields.push( 'db_host_label' );
+	PearSetupValidationUtils.requiredFields.push( 'db_name_label' );
+	PearSetupValidationUtils.requiredFields.push( 'db_user_label' );
+	PearSetupValidationUtils.requiredFields.push( 'account_name_label' );
+	PearSetupValidationUtils.requiredFields.push( 'account_password_label' );
+	PearSetupValidationUtils.requiredFields.push( 'account_email_label' );
+	PearSetupValidationUtils.requiredFields.push( 'secret_question_label' );
+	PearSetupValidationUtils.requiredFields.push( 'secret_answer_label' );
+	
+//]]>
+</script>

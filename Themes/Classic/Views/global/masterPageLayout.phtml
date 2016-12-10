@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><?php print $pageTitle ?></title>
+<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/prototype.js' ) ?>"></script>
+<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/scriptaculous/scriptaculous-cache.js' ) ?>"></script>
+
+<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearRegistry.js' ) ?>"></script>
+<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearMenu.js' ) ?>"></script>
+<?php print $this->pearRegistry->response->getPageHeaders() ?>
+
+<script type="text/javascript">
+//<![CDATA[
+	
+	//=============================================================
+	//	Define vars
+	//=============================================================
+	
+	/** ##############  	Globals   ############## **/
+	var PEAR_IN_DEBUG_MODE						= true;
+	var PEAR_IS_ADMIN_CP							= false;
+	
+	/** ##############  	Member information   ############## **/
+	PearRegistry.Member.memberID					= parseInt( "<?php print $this->member['member_id'] ?>" );
+	PearRegistry.Member.memberName 			    = "<?php print $this->member['member_name'] ?>";
+	PearRegistry.Member.memberGroup			    = parseInt( "<?php print $this->member['member_group_ids'] ?>" );
+	PearRegistry.Member.isAdion			        = ( parseInt( "<?php print $this->member['group_access_cp'] ?>" ) === 1 );
+	PearRegistry.Member.sessionID				= "<?php print $this->session->sessionID ?>";
+	PearRegistry.Member.secureToken				= "<?php print $this->secureToken ?>";
+	
+	/** ##############   Urls   ############## **/
+	PearRegistry.Settings.baseUrl        		= "<?php print $this->baseUrl ?>";
+	PearRegistry.Settings.websiteUrl				= "<?php print $this->absoluteUrl( '/index.php' ) ?>";
+	PearRegistry.Settings.uploadUrl       		= "<?php print $this->settings['upload_url'] ?>/";
+	PearRegistry.Settings.imagesUrl		        = "<?php print $this->imagesUrl ?>/";
+
+	/** ##############   Language pack  ############## **/
+	PearRegistry.Settings.selectedLanguageKey	= "<?php print $this->pearRegistry->localization->selectedLanguage['language_key'] ?>";
+	PearRegistry.Settings.languageIsRtl			= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_is_rtl'] ?>" );
+	PearRegistry.Settings.languageWeekFromSunday	= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_calendar_week_from_sunday'] ?>" );
+	
+	/** ##############   Templates  ############## **/
+	PearRegistry.Templates['loading_message']	= new Template('<div id="loading-message-layer"><img src="<?php print $this->imagesUrl ?>/loading-animation.gif" alt="" /> #{loadingText}</div>');
+	
+	//=============================================================
+	//	Initialize
+	//=============================================================
+	
+	PearRegistry.initialize();
+	
+//]]>
+</script>
+<script type="text/javascript" src="<?php print $this->absoluteUrl( '/' . PEAR_LANGUAGES_DIRECTORY . $this->pearRegistry->localization->selectedLanguage['language_key'] . '/lang_jscripts.js' )?>"></script>
+</head>
+<body>
+<div id="pearcms-header">
+	<h1>
+		<a href="<?php print $this->absoluteUrl( '/index.php' ) ?>" title="<?php print $this->settings['site_name'] ?>"><?php print $this->settings['site_name'] ?></a></h1>
+	<h2>
+		<?php print $this->settings['site_slogan'] ?></h2>
+</div>
+<ul id="pearcms-menu-bar">
+<?php foreach ($this->pearRegistry->response->getMainMenuItems() as $item): ?>
+	<li<?php if ( $item['item_selected'] ): /** This is the selected item **/ ?> class="selected"<?php endif; ?>>
+		<a href="<?php print $item['item_content'] ?>"
+			<?php if ( $item['item_target'] != '_self' ): ?> target="<?php print $item['item_target'] ?>"<?php endif; ?>
+			<?php if ( $item['item_class_name'] ): ?> class="<?php print $item['item_class_name'] ?>"<?php endif; ?>
+			<?php if ( $item['item_id_attr'] ): ?> id="<?php print $item['item_id_attr'] ?>"<?php endif; ?>
+			<?php if ( $item['item_robots'] != 'index, follow' ): ?> rel="<?php print $item['item_robots'] ?>"<?php endif; ?>><?php print $item['item_name'] ?></a>
+	</li>
+<?php endforeach; ?>
+</ul>
+<table id="pearcms-content-wrapper">
+	<tr>
+		<td id="pearcms-sidebar">
+			<?php if ( $this->pearRegistry->member['member_id'] < 1 ): /** Guest block **/ ?>
+			<div class="sidebar-block">
+				<div class="title">
+					<?php print $this->lang['login'] ?> <a href="<?php print $this->absoluteUrl( 'load=register' ) ?>" class="float-right"><?php print $this->lang['not_a_member_register'] ?></a>
+				</div>
+				<div class="content">
+					<form method="POST" action="<?php print $this->absoluteUrl( 'load=login&amp;do=connect-member' ) ?>">
+						<input type="hidden" name="page_referer" value="<?php print $this->pearRegistry->queryStringSafe ?>" />
+						<table class="width-full">
+							<tr class="row1">
+								<td class="width-fourty">
+									<?php print $this->lang['member_email'] ?></td>
+								<td class="width-sixty">
+									 <input type="text" class="input-text ltr" name="member_email" /></td>
+							</tr>
+							<tr class="row2">
+								<td class="width-fourty">
+									<?php print $this->lang['member_password'] ?></td>
+								<td class="width-sixty">
+									 <input type="password" class="input-text" name="member_password" /></td>
+							</tr>
+							<tr class="row1">
+								<td class="width-fourty">
+									<?php print $this->lang['remember_me'] ?></td>
+								<td class="width-sixty">
+									 <input type="checkbox" class="input-text" name="remember_me" /></td>
+							</tr>
+						</table>
+						<div class="right">
+							<a href="<?php print $this->absoluteUrl( 'load=login&amp;do=recover-password' ) ?>"><?php print $this->lang['forgot_password_link'] ?></a>&nbsp;&middot;&nbsp;<input type="submit" value="<?php print $this->lang['sign_in_button'] ?>" class="input-submit" /></div>
+					</form>
+				</div>
+			</div>
+			<?php else: /** This is the members block: **/ ?>
+			<div class="sidebar-block">
+				<div class="title"><?php print $this->lang['welcome'] ?> <a href="<?php print $this->absoluteUrl( 'load=profile&amp;id=' . $this->member['member_id'] ) ?>" class="bold"><?php print $this->member['member_name'] ?></a>.</div>
+				<div class="content">
+					<ul id="pearcms-member-bar">
+						<li>
+							<img src="<?php print $this->member['member_avatar'] ?>" alt="" style="width: <?php print $this->member['_member_avatar_sizes_thumb']['widht'] ?>px; height: <?php print $this->member['_member_avatar_sizes_thumb']['height'] ?>px;" class="center middle" /></li>
+						<li>
+							<?php if ( $this->member['group_access_cp'] ): ?>
+							<a href="<?php print $this->absoluteUrl( '/' . PEAR_ADMINCP_DIRECTORY . 'index.php' ) ?>" target="_blank" title="<?php print $this->lang['admin_cp'] ?> " class="bold"><?php print $this->lang['admin_cp_link'] ?></a>
+							<?php endif; ?>
+							<a href="<?php print $this->absoluteUrl( 'load=profile&amp;id=' . $this->pearRegistry->member['member_id'] ) ?>"><?php print $this->lang['profile_link'] ?></a>
+							<a href="<?php print $this->absoluteUrl( 'load=usercp' ) ?>"><?php print $this->lang['usercp_link'] ?></a>
+							<a href="<?php print $this->absoluteUrl( 'load=messenger' ) ?>"><?php print $this->lang['messenger_link'] ?></a>
+							<a href="<?php print $this->absoluteUrl( 'load=memberlist' ) ?>"><?php print $this->lang['memberlist_link'] ?></a>
+							<a href="<?php print $this->absoluteUrl( 'load=login&amp;do=disconnect-member&amp;t=' . $this->pearRegistry->secureToken) ?>"><?php print $this->lang['logout'] ?></a>
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<?php endif; ?>
+			<?php /** The "processAndGetBlocksList" method returns the HTML content for all blocks.
+		 	In order to be queued, each block have to be added AND enabled in the Admin CP. Each block was processed by its block type provider logic (for example, "wysiwyg" type processed by the PearRTEParser "parseBeforeDisplay" method)
+		 	in order to get its content. At the end, blocks wrapped in the siteBlock.phtml template and then appended to the blocks HTML queue.  **/
+			print $this->pearRegistry->loadedLibraries['blocks_manager']->processAndGetBlocksList() ?>
+		</td>
+		<td id="pearcms-content-container">
+			
+			<div id="pearcms-site-navigator">
+				<div>
+				<?php foreach (($nav = $this->pearRegistry->response->getNavigator()) as $i => $data): /** Print the CP navigator **/ ?>
+					<?php if (! empty($data[0]) ): ?>
+					<a href="<?php print $data[0] ?>"><?php print $data[1] ?></a>
+					<?php else: ?>
+					<span><?php print $data[1] ?></span>
+					<?php endif; ?>
+					<?php if ( $i < count($nav) - 1 ): /** Do we got more items to print? **/ ?>
+					&gt; 
+					<?php endif; ?>
+				<?php endforeach; ?>
+				</div>
+			</div>
+			<div id="pearcms-content">
+				<?php if ( $this->member['member_id'] > 0 AND $this->member['is_validating'] == 1 ): /** This member did not verified his or her account **/ ?>
+				<div class="warning-message">
+					<div class="title">
+						<?php print $this->lang['account_still_validating'] ?></div>
+					<?php printf($this->lang['account_validating_message'], 
+					$this->absoluteUrl( 'load=register&amp;do=resend-validation-code' ),
+					$this->absoluteUrl( 'load=register&amp;do=validation-form') ) ?>
+				</div>
+				<br />
+				<?php endif; ?>
+				<?php if ( $this->member['member_id'] > 0 AND $this->member['member_new_pms_count'] > 0 ): /** This member got new private message **/ ?>
+				<div class="warning-message">
+					<div class="title"><?php print $this->lang['account_got_new_pm'] ?></div>
+					<?php print sprintf($this->lang['account_got_new_pms_description'], $this->member['member_new_pms_count'], $this->absoluteUrl( 'load=messenger') ) ?>
+				</div>
+				<br />
+				<?php endif; ?>
+				<?php print $pageContent ?>
+			</div>
+		</td>
+	</tr>
+</table>
+<div id="pearcms-footer">
+	<div class="left">
+		<?php if ( count($this->pearRegistry->response->getAvailableRSSFeeds()) > 0 ): /** Do we got any RSS feed? **/ ?>
+		<img src="<?php print $this->imagesUrl ?>/Icons/feed.png" alt="" id="rss-menu-head" class="pointer" />
+		<div class="rss-menu" id="rss-menu-target">
+			<?php foreach ( $this->pearRegistry->response->getAvailableRSSFeeds() as $feedLink => $feedName ): /** Print all feeds **/ ?>
+			<a href="<?php print $feedLink ?>" title="<?php print $feedName ?>"><?php print $feedName ?></a>
+			<?php endforeach; ?>
+		</div>
+		<script type="text/javascript">
+		//<![CDATA[
+			PearRegistry.Menus.register( new PearMenu( 'rss-menu-head', 'rss-menu-target' ) );
+		//]]>
+		</script>
+		<?php endif; ?>
+		<?php if ( $this->member['member_id'] > 0 AND count($this->pearRegistry->response->getThemesList()) > 1 ): /** Do we need to show the themes selection form **/ ?>
+		<form method="post" class="inline" id="theme_selection_form" action="<?php print $this->absoluteUrl( 'load=global&amp;do=change-theme' ) ?>">
+			<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+			<select name="selected_theme" onchange="$('theme_selection_form').submit();">
+				<optgroup label="<?php print $this->lang['theme_selector_optgroup_label'] ?>">
+					<?php foreach ($this->pearRegistry->response->getThemesList() as $themeId => $themeName ): ?>
+						<?php if ($this->member['selected_theme'] == $themeId): ?>
+						<option value="<?php print $themeId ?>" selected="selected"><?php print $themeName ?></option>
+						<?php else: ?>
+						<option value="<?php print $themeId ?>"><?php print $themeName ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</optgroup>
+			</select>
+		</form>
+		<?php endif; ?>
+		<?php if ( $this->member['member_id'] > 0 AND count($this->pearRegistry->response->getLanguagesList()) > 1 ): /** Do we need to show the languages selection form **/ ?>
+		<form method="post" class="inline" id="language_selection_form" action="<?php print $this->absoluteUrl( 'load=global&amp;do=change-language' ) ?>">
+			<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+			<select name="selected_language" onchange="$('language_selection_form').submit();">
+				<optgroup label="<?php print $this->lang['language_selector_optgroup_label'] ?>">
+					<?php foreach ($this->pearRegistry->response->getLanguagesList() as $langId => $langName ): ?>
+						<?php if ($this->member['selected_language'] == $langId): ?>
+						<option value="<?php print $langId ?>" selected="selected"><?php print $langName ?></option>
+						<?php else: ?>
+						<option value="<?php print $langId ?>"><?php print $langName ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</optgroup>
+			</select>
+		</form>
+		<?php endif; ?>
+	</div>
+	<div class="right">
+		<?php /**
+				* Copyrights
+				* -------------------------------
+				* This copyright line is simply a little token of respect for our effort to make this software both FREE and OPEN SOURCE.
+				* We really wished to make this program ope source, and most importantly, open source that can be rewritten for commernical usage, so please - its not that much burden to keep that single line.
+				* If you REALLY HAVE TO remove this copyrights, please consider recommend us and/or donate to the project, so we can continue to work on this software, remember that we got development costs (both time, server and softwares we developing with and using in order to serve and help you - the clients).
+				**/ ?>
+		<!-- Copyright Information -->
+		<a href="http://pearcms.com/products/cms" title="Content Management System by Pear Technology Investments, Ltd.">Content Management System by PearCMS <?php print $this->pearRegistry->version ?></a>
+		<!-- Copyright Information -->
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>

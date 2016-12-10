@@ -1,0 +1,100 @@
+<h1 class="page-title"><?php print $this->lang['comments_section_title'] ?></h1>
+<?php if ( count($comments) > 0 ): /** Do we got comments? **/ ?>
+<div class="page-section">
+	<div class="section-content">
+	<a name="comments" id="comments"></a>
+	<?php foreach ( $comments as $i => $comment ): ?>
+		<div class="comment-container <?php if ( $comment['comment_by_member_id'] == $pageData['page_author_id'] ): ?>author-comment<?php endif; ?>">
+			<a name="comment<?php print $comment['comment_id'] ?>" id="comment<?php print $comment['comment_id'] ?>"></a>
+			<ul>
+				<?php if ( $comment['comment_by_member_id'] > 0 ): ?>
+				<li>
+					<a href="<?php print $this->absoluteUrl('load=profile&amp;id=' . $comment['comment_by_member_id']) ?>"><img src="<?php print $comment['member_avatar'] ?>" alt="" style="width: <?php print $comment['_member_avatar_sizes_thumb']['widht'] ?>px; height: <?php print $comment['_member_avatar_sizes_thumb']['height'] ?>px;" /></a></li>
+				<?php else: ?>
+				<li>
+					<img src="<?php print $comment['member_avatar'] ?>" alt="" style="width: <?php print $comment['_member_avatar_sizes_thumb']['widht'] ?>px; height: <?php print $comment['_member_avatar_sizes_thumb']['height'] ?>px;" /></li>
+				<?php endif; ?>
+				<li>
+					<div class="comment-metadata">
+					<?php if ( $comment['comment_by_member_id'] > 0 ): ?>
+						<?php print $this->lang['posted_by'] ?> <a href="<?php print $this->absoluteUrl('load=profile&amp;id=' . $comment['comment_by_member_id'] ) ?>" class="bold"><?php print $comment['member_name'] ?></a>
+						<?php else: ?>
+						<?php print $this->lang['posted_by'] ?> <span class="bold"><?php print $comment['comment_member_name'] ?></span>
+					<?php endif; ?>
+					<?php print $this->lang['at'] ?> <span class="bold"><?php print $this->pearRegistry->getDate($comment['comment_added_date']) ?></span>
+						<span class="float-right">
+							<?php if ( $this->member['member_id'] == $comment['comment_by_member_id'] OR $this->member['can_remove_comments'] ): ?>
+								<a href="<?php print $this->absoluteUrl( 'load=content&amp;do=remove-comment&amp;page_id=' . $pageData['page_id'] . '&amp;comment_id=' . $comment['comment_id'] . '&amp;t=' . $this->secureToken ) ?>"><?php print $this->lang['remove_comment_link'] ?></a>&nbsp;&middot;&nbsp;
+							<?php endif; ?>
+							<a href="<?php print $this->absoluteUrl('load=content&amp;page_id=' . $this->request['page_id']) ?>#comment<?php print $comment['comment_id'] ?>" class="bold italic">#<?php print ($i+1) ?></a>
+						</span>
+					</div>
+					<div class="comment-content">
+						<?php print $comment['comment_content'] ?>
+					</div>
+				</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+	<?php endforeach; ?>
+	</div>
+</div>
+<?php print $pages; ?>
+<?php else: ?>
+<div class="warning-message"><?php print $this->lang['no_comments_for_content_message'] ?></div>
+<?php endif; ?>
+<br />
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['add_comment_section_title'] ?></div>
+	<div class="section-content">
+		<?php if ( $this->member['member_id'] > 0 OR $pageData['page_allow_guest_comments'] ): /** If I'm a guest, can I comment? **/ ?>
+		<form method="post" action="<?php print $this->absoluteUrl( 'load=content&amp;do=add-comment&amp;page_id=' . $pageData['page_id'] ) ?>">
+			<input type="hidden" name="do" value="add-comment" />
+			<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+			<?php if (! empty($error) ): ?>
+			<div class="warning-message"><?php print $error ?></div>
+			<?php endif; ?>
+			<table class="width-full">
+				<?php if ( $this->member['member_id'] < 1 ): /** If I'm a guest, prompt to get my name and email, otherwise we don't need it as we got in the registeration **/ ?>
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['comment_member_name_field'] ?> <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" class="input-text" name="comment_member_name" /></td>
+				</tr>
+				<tr class="row2">
+					<td class="width-fourty">
+						<?php print $this->lang['comment_email_address_field'] ?> <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" class="input-text" name="comment_email_address" /></td>
+				</tr>
+				<?php endif; ?>
+				<tr class="row1">
+					<td colspan="2">
+						<?php print $this->lang['comment_content_field'] ?> <span class="require">*</span></td>
+				</tr>
+				<tr class="row2">
+					<td colspan="2">
+						<?php print $this->renderView('global', 'wysiwygEditor', array('editorName' => 'comment_contnet', 'editorContent' => $this->request['comment_contnet']) ) ?></td>
+				</tr>
+				<?php if ( $this->member['require_captcha_in_comments'] ): ?>
+				<tr class="row1">
+					<td class="width-sixty">
+						<?php print $this->lang['captcha_image_field_title'] ?></td>
+					<td class="width-fourty">
+						<img src="<?php print $this->absoluteUrl( 'load=content&amp;do=comments-captcha-image' ) ?>" alt="" />
+						<input type="text" class="input-text" name="captcha_validation" value="" /></td>
+				</tr>
+				<?php endif; ?>
+			</table>
+			<div class="actions-bar">
+				<div class="right">
+					<input type="submit" class="input-submit" value="<?php print $this->lang['enter_password_submit'] ?>" /></div>
+				<div class="clear"></div>
+			</div>
+		</form>
+		<?php else: ?>
+		<div class="warning-message"><?php print $this->lang['guest_not_allowed_to_comment'] ?></div>
+		<?php endif; ?>
+	</div>
+</div>

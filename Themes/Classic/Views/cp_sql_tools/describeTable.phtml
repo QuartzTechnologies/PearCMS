@@ -1,0 +1,25 @@
+<div class="data-block">
+	<div class="title"><?php print $this->lang['actions_form_title'] ?></div>
+	<div class="content gradient center">
+			<a href="<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=describe-table&amp;table_name=' . urlencode( $this->request['table_name'] ) ) ?>"><?php print $this->lang['table_structure'] ?></a>
+			&nbsp;&middot;&nbsp;
+			<a href="<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=execute-query&amp;q=' . urlencode( 'SELECT * FROM ' . $this->request['table_name'] ) ) ?>"><?php print $this->lang['table_content'] ?></a>
+			&nbsp;&middot;&nbsp;
+			<a href="<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=do-backup&amp;export_table=' . urlencode( $tableName ) ) ?>"><?php print $this->lang['export_table'] ?></a>
+			&nbsp;&middot;&nbsp;
+			<a href="javascript:PearLib.openPopupWindow('<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=print-table&amp;table_name=' . urlencode( $this->request['table_name'] ) ) ?>');" ><?php print $this->lang['print_table'] ?></a>
+	</div>
+</div>
+<br />
+<?php print $this->renderView('cp_global', 'dataTable', array(
+	'title'				=>	sprintf($this->lang['manage_table_form_title'], $this->request['table_name']),
+	'headers'			=>	array(
+		$this->lang['field_name_field'],
+		$this->lang['field_type_field'],
+		$this->lang['field_is_null_field'],
+		$this->lang['field_default_value_field'],
+		$this->lang['field_extra_field'],
+		$this->lang['order_by_field_field']
+	),
+	'rows'				=>	$fieldsTableRows
+)) ?>

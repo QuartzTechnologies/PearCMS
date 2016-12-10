@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><?php print $pageTitle ?></title>
+
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/prototype.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/ThirdParty/scriptaculous/scriptaculous-cache.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearRegistry.js', 'site') ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/CP/PearCPRegistry.js', 'site' ) ?>"></script>
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/Client/JScripts/PearMenu.js', 'site' ) ?>"></script>
+	<?php $this->addCSSFile('/PearPopupWindow.css') ?>
+	<?php print $this->pearRegistry->response->getPageHeaders() ?>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		
+		//=============================================================
+		//	Define vars
+		//=============================================================
+		
+		/** ##############  	Globals   ############## **/
+		var PEAR_IN_DEBUG_MODE						= true;
+		var PEAR_IS_ADMIN_CP							= true;
+		
+		/** ##############  	Member information   ############## **/
+		PearRegistry.Member.memberID					= parseInt( "<?php print $this->member['member_id'] ?>" );
+		PearRegistry.Member.memberName 			    = "<?php print $this->member['member_name'] ?>";
+		PearRegistry.Member.memberGroup			    = parseInt( "<?php print $this->member['member_group_ids'] ?>" );
+		PearRegistry.Member.isAdion			        = ( parseInt( "<?php print $this->member['group_access_cp'] ?>" ) === 1 );
+		PearRegistry.Member.sessionID				= "<?php print $this->session->sessionID ?>";
+		PearRegistry.Member.secureToken				= "<?php print $this->secureToken ?>";
+		
+		/** ##############   Urls   ############## **/
+		PearRegistry.Settings.baseUrl        		= "<?php print $this->baseUrl ?>";
+		PearRegistry.Settings.websiteUrl				= "<?php print $this->absoluteUrl( '/index.php' ) ?>";
+		PearRegistry.Settings.uploadUrl       		= "<?php print $this->settings['upload_url'] ?>/";
+		PearRegistry.Settings.imagesUrl		        = "<?php print $this->imagesUrl ?>/";
+		PearRegistry.CP.Settings.baseUrl				= "<?php print $this->pearRegistry->admin->baseUrl ?>";
+		PearRegistry.CP.Settings.rootUrl				= "<?php print $this->pearRegistry->admin->rootUrl ?>";
+		PearRegistry.CP.Settings.imagesUrl			= "<?php print $this->pearRegistry->admin->rootUrl ?>Images/";
+		
+		/** ##############   Language pack  ############## **/
+		PearRegistry.Settings.selectedLanguageKey	= "<?php print $this->pearRegistry->localization->selectedLanguage['language_key'] ?>";
+		PearRegistry.Settings.languageIsRtl			= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_is_rtl'] ?>" );
+		PearRegistry.Settings.languageWeekFromSunday	= parseInt( "<?php print $this->pearRegistry->localization->selectedLanguage['language_calendar_week_from_sunday'] ?>" );
+		
+		/** ##############   Templates  ############## **/
+		PearRegistry.Templates['loading_message']	= new Template('<div id="loading-message-layer"><img src="<?php print $this->imagesUrl ?>/loading-animation.gif" alt="" /> #{loadingText}</div>');
+		
+		//=============================================================
+		//	Initialize
+		//=============================================================
+		
+		PearRegistry.initialize();
+		PearRegistry.CP.initialize( "<?php print $this->pearRegistry->admin->createTimeCounter( $this->pearRegistry->admin->sessionData['session_login_time'] ) ?>" );
+		
+		
+	//]]>
+	</script>
+	
+	<script type="text/javascript" src="<?php print $this->absoluteUrl( '/' . PEAR_LANGUAGES_DIRECTORY . $this->pearRegistry->localization->selectedLanguage['language_key'] . '/lang_jscripts.js', 'site' ) ?>"></script>
+</head>
+<body>
+<?php if ( file_exists(PEAR_ROOT_PATH . PEAR_INSTALLER_DIRECTORY . 'index.php') ): /** The installer script exists? **/ ?>
+<div id="pearcp-header-warning-message">
+	<div class="title"><?php print $this->lang['installer_files_exists_title'] ?></div>
+	<div class="content">
+		<?php print $this->lang['installer_files_exists_msg'] ?></div>
+</div>
+<?php endif; ?>
+<div id="pearcp-content-wrapper">
+	<?php if ( ! empty($this->pearRegistry->response->globalMessage) ): /** Do we got global message? **/ ?>
+	<div id="pearcms-global-message">
+		<div class="title"><?php print $this->lang['pearcms_message_title'] ?></div>
+		<?php print $this->pearRegistry->response->globalMessage ?>
+	</div>
+	<?php endif; ?>
+	<?php print $pageContent ?>
+</div>
+<div id="pearcp-footer">
+	<a href="http://pearcms.com" target="_blank">PearCMS</a> <?php print $this->pearRegistry->version ?> &copy;&nbsp;<?php print date('Y') ?> <a href="http://quartz-technologies.com" target="_blank">Pear Technology Investments, Ltd.</a>
+</div>
+</body>
+</html>

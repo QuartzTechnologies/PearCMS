@@ -1,0 +1,93 @@
+<form action="<?php print $this->absoluteUrl( 'load=messenger&amp;do=apply-tool' ) ?>" method="post" id="PrivateMessagesInboxForm">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+<div class="page-section">
+	<div class="section-title">
+		<?php print $this->lang['messager_inbox_sheet_title'] ?>
+			<div class="dropdown_list_head float-right" id="messanger_actions_menu_head">
+				<?php print $this->lang['meessanger_actions_list_head'] ?></div>
+    		</div>
+	<div class="section-content">
+	<?php if ( count($messages) > 0 ): ?>
+		<table class="width-full">
+			<tr>
+				<th style="width: 5%;">&nbsp;</th>
+				<th style="width: 40%;"><?php print $this->lang['message_title_field'] ?></th>
+				<th style="width: 20%;"><?php print $this->lang['message_sender_field'] ?></th>
+				<th style="width: 20%;"><?php print $this->lang['message_sent_date_field'] ?></th>
+				<th style="width: 5%;"><input type="checkbox" id="PrivateMessagesInboxFormToggleAll" /></th>
+			</tr>
+			<?php $i = 0; ?>
+			<?php foreach ( $messages as $message ): ?>
+			<tr class="row<?php print ( $i++ % 2 == 0 ? '1' : '2' ) ?>">
+				<td style="width: 5%;"><img src="<?php print $this->imagesUrl ?>/private_message_<?php print ( intval($message['message_read']) === 1 ? 'read' : 'unread' ) ?>.png" alt="" /></td>
+				<td style="width: 40%;"><a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=show-message&amp;message_id=' . $message['message_id']) ?>"><?php print $message['message_title'] ?></a></td>
+				<td style="width: 20%;"><a href="<?php print $this->absoluteUrl('index.php?load=profile&amp;id=' . $message['member_id']) ?>"><?php print $message['member_name'] ?></a></td>
+				<td style="width: 20%;"><?php print $this->pearRegistry->getDate($message['message_send_date']) ?></td>
+				<td style="width: 5%;"><input type="checkbox" name="selected_messages[]" value="<?php print $message['message_id'] ?>" /></td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php else: ?>
+		<div class="information-message"><?php print $this->lang['no_inbox_private_messages'] ?></div>
+		<?php endif ; ?>
+		<div class="actions-bar">
+			<?php print $this->lang['selected_messages'] ?> <span id="PrivateMessagesInboxFormSelectedCounter" class="italic">0</span>
+			<select name="applied_tool">
+				<optgroup label="<?php print $this->lang['select_action_title'] ?>">
+					    <option value="move_to_faves"><?php print $this->lang['move_to_fave_option'] ?></option>
+					     <option value="move_from_faves"><?php print $this->lang['remove_from_fave_option'] ?></option>
+					    <option value="set_as_read"><?php print $this->lang['mark_as_read_option'] ?></option>
+					    <option value="set_as_unread"><?php print $this->lang['mark_as_unread_option'] ?></option>
+					    <option value="delete"><?php print $this->lang['remove_posts_option'] ?></option>
+				</optgroup>
+			</select>
+			<div class="right">
+				<input type="submit" value="<?php print $this->lang['fire_actions_butotn'] ?>" class="input-submit" /></div>
+		</div>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+</form>
+<?php print $pages ?>
+<div class="dropdown_menu_wrapper" id="messanger_actions_menu">
+	<div class="title"><?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message' ) ?>"><?php print $this->lang['send_new_message_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=inbox' ) ?>"><?php print $this->lang['view_inbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=outbox' ) ?>"><?php print $this->lang['view_outbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=favorites' ) ?>"><?php print $this->lang['view_favebox_action'] ?></a>
+</div>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	PearRegistry.Menus.register( new PearMenu( 'messanger_actions_menu_head', 'messanger_actions_menu' ) );
+	
+	$('PrivateMessagesInboxForm').select('INPUT').each(function(input) {
+		if ( input.type.toLowerCase() != 'checkbox' || input.id == 'PrivateMessagesInboxFormToggleAll' )
+		{
+			return;
+		}
+	
+		input.observe('change', function() {
+			var selectedCount = parseInt( $("PrivateMessagesInboxFormSelectedCounter").innerHTML, 10 );
+			if ( input.checked )
+			{
+				$("PrivateMessagesInboxFormSelectedCounter").update((selectedCount + 1));
+			}
+			else
+			{
+				$("PrivateMessagesInboxFormSelectedCounter").update((selectedCount - 1));
+			}
+		});
+	});
+	
+	$('PrivateMessagesInboxFormToggleAll').observe('change', function() {
+		$('PrivateMessagesInboxForm').select('INPUT').each(function(input) {
+			if ( input.type.toLowerCase() != 'checkbox' || input.id == 'PrivateMessagesInboxFormToggleAll' )
+			{
+				return;
+			}
+	
+			input.checked = $('PrivateMessagesInboxFormToggleAll').checked;
+		});
+	});
+//]>
+</script>

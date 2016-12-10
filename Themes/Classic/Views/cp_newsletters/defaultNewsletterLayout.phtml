@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{#newsletter_title#}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php print $this->settings['site_charset'] ?>">
+</head>
+<body>
+<?php if (! empty($this->lang['email_header']) ): ?>
+<h1><?php print $this->lang['email_header'] ?></h1>
+<?php endif; ?>
+<h2>{#newsletter_title#}</h2>
+{#newsletter_content#}
+<br />
+<div class="right">
+	{#unsubscribe_link#}</div>
+<?php if (! empty($this->lang['email_footer']) ): ?>
+<br />
+<br />
+<p><?php print $this->lang['email_footer'] ?></p>
+<?php endif; ?>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?php $this->addJSFile('/Site/Pear.Content.js') ?>
+<div class="page-section">
+	<div class="section-title"><?php print $pageData['page_name'] ?>
+		<div class="right"><!-- Pear Default Rate Placeholder --></div></div>
+	<div class="section-content">
+		<?php print $pageContent ?>
+		<?php if ( $pageData['page_allow_share'] OR count($pageData['page_tags']) > 0 ): ?>
+		<div class="actions-bar">
+			<!-- Pear Default Tagging Placeholder -->
+			<!-- Pear Default Sharing Placeholder -->
+			<div class="clear"></div>
+		</div>
+		<?php endif; ?>
+	</div>
+</div>
+<br />
+<!-- Pear Default Comments Placeholder -->
+<?php print $this->renderView('global', 'includeLightbox') ?>
+<?php print $this->renderView('global', 'syntaxHighlighter') ?>

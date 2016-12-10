@@ -1,0 +1,44 @@
+<?php $this->addJSFile('/PearUITabs.js') ?>
+<div class="data-block">
+	<div class="title"><?php print $this->lang['actions_form_title'] ?></div>
+	<div class="content gradient">
+		<ul class="pearcp-tabs-wrapper" id="PearSQLActions_TabStrip">
+			<li><?php print $this->lang['view_query'] ?></li>
+			<li><?php print $this->lang['edit_query'] ?></li>
+			<li><?php print $this->lang['generate_php4_execute_code'] ?></li>
+			<li><?php print $this->lang['generate_pearcms1_execute_code'] ?></li>
+		</ul>
+		<div class="pearcp-tabs-content" id="PearSQLActions_PaneWrapper">
+			<div id="PearSQLActions-1"><pre dir="ltr"><?php print $highlightedCode ?></pre></div>
+			<div id="PearSQLActions-2">
+				<form method="post" action="<?php print $this->absoluteUrl( 'load=sql_tools&amp;do=execute-query' ) ?>">
+					<input type="hidden" name="authsession" value="<?php print $this->request['authsession'] ?>" />
+					<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+					<div class="center" style="margin-top: 3px; margin-bottom: 3px;">
+						<?php print $this->textareaField('q', $this->escape($this->request['q']), array( 'style' => 'width: 85%; margin: 0px auto; height: 250px;' ) ) ?></div>
+					<div class="right">
+						<input type="submit" value="<?php print $this->lang['run_query_submit'] ?>" class="input-submit" /></div>
+				</form>
+			</div>
+			<div id="PearSQLActions-3"><pre dir="ltr">$stmt = mysql_query("<?php print addslashes($this->escape($this->request['q'])) ?>");</pre></div>
+			<div id="PearSQLActions-4"><pre dir="ltr">$this-&gt;db-&gt;query("<?php print addslashes($this->escape($this->request['q'])) ?>");</pre></div>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+//<![CDATA[
+	new PearUITabs('PearSQLActions', 1);
+//]]>
+</script>
+<?php print $this->renderView('cp_global', 'dataTable', array(
+	'title'					=>	$this->lang['query_results_form_title'],
+	'headers'				=>	$headers,
+	'rows'					=>	$rows	
+)) ?>
+<?php print $pages ?>
+<script type="text/javascript">
+//<![CDATA[
+	new PearUITabs('PearSQLActions', 1, { effectType: "blind" });
+//]]>
+</script>

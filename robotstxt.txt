@@ -1,0 +1,27 @@
+###################################################################################
+#	How to use this file:
+# 1) Edit this file to change "/site/" directory prefix to the correct relative path from your base URL to PearCMS instance, for example, if your site was at "domain.com/site", then you'd use "/site/"
+# 2) Rename the file to 'robots.txt' and move it to your web root (public_html, www, or htdocs)
+# 3) Edit the file to remove this comment (anything above the dashed line, including the dashed line
+#
+# NOTES:
+# Even though wild cards and pattern matching are not part of the robots.txt specification, many search bots understand and make use of them
+###################################################################################
+##################### REMOVE THIS LINE AND EVERYTHING ABOVE SO THAT User-agent: * IS THE FIRST LINE ####################
+User-agent: *
+Disallow: /site/Admin/
+Disallow: /site/Cache/
+Disallow: /site/PearCMSInstaller/
+Disallow: /site/SystemSources/
+Disallow: /site/Languages/
+Disallow: /site/Themes/
+Disallow: /site/Client/Capcha/
+Disallow: /site/index.php?load=usercp&do=dashboard
+Disallow: /site/index.php?load=usercp&do=personal-information
+Disallow: /site/index.php?load=usercp&do=change-name
+Disallow: /site/index.php?load=usercp&do=change-password
+Disallow: /site/index.php?load=usercp&do=modify-avatar
+Disallow: /site/index.php?load=messenger
+Disallow: /*load=usercp
+Disallow: /*load=messenger
+Disallow: /site/index.php?load=content&do=rate-page

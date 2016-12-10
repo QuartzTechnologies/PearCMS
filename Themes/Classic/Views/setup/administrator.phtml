@@ -1,0 +1,49 @@
+<p>
+	<?php print $this->lang['installer_step6_instructions'] ?>
+</p>
+<div class="warning-message">
+	<span class="title"><?php print $this->lang['installer_step6_note_title'] ?></span>
+	<?php print $this->lang['installer_step6_note_desc'] ?>
+</div>
+<table class="data-table">
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['account_mail_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text" value="<?php print $accountEmail ?>" name="account_email" />
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['account_name_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text" value="<?php print $accountName ?>" name="account_name" />
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['account_pass_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="password" class="input-text" name="account_password" />
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['account_secret_question_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" class="input-text" value="<?php print $secretQuestion ?>" name="secret_question" />
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['account_secret_answer_field'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="password" class="input-text" name="secret_answer" />
+		</td>
+	</tr>
+</table>

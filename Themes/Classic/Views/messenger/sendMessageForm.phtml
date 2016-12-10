@@ -1,0 +1,86 @@
+<?php if ( isset($this->request['message_preview']) ): /** Got message to preview? **/ ?>
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['message_preview_title'] ?></div>
+	<div class="section-content">
+		<?php print $this->pearRegistry->loadedLibraries['editor']->parseForDisplay($this->request['message_content']) ?>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+<?php endif; ?>
+<?php if ( count($errors) > 0 ): /** Got any errors? **/ ?>
+<div class="warning-message">
+	<div class="title"><?php print $this->lang['send_message_errors_title'] ?></div>
+	<ul>
+		<?php foreach($errors as $error): ?>
+		<li><?php print $error; ?></li>
+		<?php endforeach; ?>
+	</ul>
+</div>
+<?php endif; ?>
+<?php if ( $orginalMessage['message_id'] > 0 ): /** Are we gonna replay to a message? if so, show the orginal message for referance **/ ?>
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['orginal_message_form_title'] ?></div>
+	<div class="section-content">
+		<?php print $orginalMessage['message_content'] ?>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+<?php endif; ?>
+<form method="post" action="<?php print $this->absoluteUrl( 'load=messenger&amp;do=do-send-message' ) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+<input type="hidden" name="message_id" value="<?php print $orginalMessage['message_id'] ?>" />
+<div class="page-section">
+	<div class="section-title"><?php print $formTitle ?>
+		<div class="dropdown_list_head float-right" id="messanger_actions_menu_head">
+			<?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	</div>
+	<div class="section-content">
+		<table class="width-full">
+			<tr class="row1">
+				<td class="width-fourty">
+					<?php print $this->lang['message_title_field'] ?> <span class="require">*</span></td>
+				<td class="width-sixty">
+					<input type="text" class="input-text" name="message_title" value="<?php print $this->request['message_title'] ?>" /></td>
+			</tr>
+			<tr class="row2">
+				<td class="width-fourty">
+					<?php print $this->lang['message_receiver_field'] ?> <span class="require">*</span></td>
+				<td class="width-sixty">
+					<input type="text" class="input-text" name="message_receiver" value="<?php print $this->request['message_receiver'] ?>" /></td>
+			</tr>
+			<tr class="row1">
+				<td colspan="2">
+					<?php print $this->lang['message_content_field'] ?> <span class="require">*</span></td>
+			</tr>
+			<tr class="row2">
+				<td colspan="2">
+					<?php print $this->renderView('global', 'wysiwygEditor', array('editorName' => 'message_content', 'editorContent' => $this->request['message_content']) ) ?></td>
+			</tr>
+			<?php if ($this->member['can_send_multiple_pm'] == 1): /** Can we send the PM to multiple users? **/ ?>
+			<tr class="row<?php print $rowIndex ?>">
+				<td class="width-fourty">
+					<?php print $this->lang['add_receivers_field'] ?></td>
+				<td class="width-sixty">
+					<textarea class="input-text" name="message_additional_receivers"><?php print $this->request['message_additional_receivers'] ?></textarea></td>
+			</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<div class="section-footer right">
+		<input type="submit" name="message_preview" class="input-submit" value="<?php print $this->lang['preview_message_button'] ?>" />&nbsp;&middot;&nbsp;<input type="submit" name="message_send" class="input-submit" value="<?php print $this->lang['send_message_button'] ?>" />
+	</div>
+	<div class="end-page-section"></div>
+</div>
+</form>
+<div class="dropdown_menu_wrapper" id="messanger_actions_menu">
+	<div class="title"><?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message' ) ?>"><?php print $this->lang['send_new_message_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=inbox' ) ?>"><?php print $this->lang['view_inbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=outbox' ) ?>"><?php print $this->lang['view_outbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=favorites' ) ?>"><?php print $this->lang['view_favebox_action'] ?></a>
+</div>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	PearRegistry.Menus.register( new PearMenu( 'messanger_actions_menu_head', 'messanger_actions_menu' ) );
+//]>
+</script>

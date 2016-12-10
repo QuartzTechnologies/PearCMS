@@ -1,0 +1,10 @@
+<div class="page-section">
+	<div class="section-title"><?php print sprintf($this->lang['site_offline_title'], $this->settings['site_name']) ?></div>
+	<div class="section-content">
+		<?php print $message ?>
+	</div>
+	<div class="section-footer right">
+		<a href="<?php print $this->absoluteUrl( 'load=login' ) ?>"><?php print $this->lang['site_offline_admin_login_submit'] ?></a>
+	</div>
+	<div class="end-page-section"></div>
+</div>

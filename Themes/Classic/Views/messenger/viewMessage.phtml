@@ -1,0 +1,26 @@
+<div class="page-section">
+	<div class="section-title"><?php print $message['message_title'] ?>
+		<div class="dropdown_list_head float-right" id="messanger_actions_menu_head">
+			<?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	</div>
+	<div class="section-content">
+		<?php print $message['message_content'] ?>
+		<div class="actions-bar">
+			<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message&amp;message_id=' . $message['message_id'] ) ?>" class="right"><?php print $this->lang['replay_to_message'] ?></a>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+<div class="dropdown_menu_wrapper" id="messanger_actions_menu">
+	<div class="title"><?php print $this->lang['meessanger_actions_list_head'] ?></div>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message' ) ?>"><?php print $this->lang['send_new_message_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=inbox' ) ?>"><?php print $this->lang['view_inbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=outbox' ) ?>"><?php print $this->lang['view_outbox_action'] ?></a>
+	<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=favorites' ) ?>"><?php print $this->lang['view_favebox_action'] ?></a>
+</div>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	PearRegistry.Menus.register( new PearMenu( 'messanger_actions_menu_head', 'messanger_actions_menu' ) );
+//]>
+</script>

@@ -1,0 +1,24 @@
+<?php
+/**
+ * Parameters:
+ * 	Required:
+ * 	- String $action:				The form URL
+ *  - String $content:				The content to display between the <form></form> tag
+ *  Optional:
+ * 	- String $name:					The form name [optional]
+ * 	- String $id:					The form id [optional]
+ *  - Array $hiddenFields:			Array contains pre-defined hidden fields to pass with the form [optional]
+ *  - Boolean $isMultipart:			Is this form contains multipart data (required for file uploads) [optional]
+ */
+?>
+
+<form method="post" action="<?php print $this->absoluteUrl( $action ) ?>"<?php if ( $name ): ?> name="<?php print $name ?>" id="<?php print $this->escape(( ! $id ? $this->__formatElementId($name) : $id )) ?>"<?php endif; ?><?php if ( $isMultipart ): ?> enctype="multipart/form-data"<?php endif; ?>>
+	<input type="hidden" name="authsession" value="<?php print $this->request['authsession'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<?php if ( count($hiddenFields) > 0 ): /** Do we got any hidden field to attach? **/ ?>
+	<?php foreach ( $hiddenFields as $name => $value ): ?>
+	<input type="hidden" name="<?php print $name ?>" value="<?php print $value ?>" />
+ 	<?php endforeach; ?>
+	<?php endif; ?>
+	<?php print $content; ?>
+</form>

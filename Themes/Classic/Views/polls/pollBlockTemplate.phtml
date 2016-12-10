@@ -1,0 +1,24 @@
+<?php if ( $allowToVote ): /** Are we going to show the votes form **/ ?>
+<form method="post" action="<?php $this->absoluteUrl( 'index.php?load=polls&amp;do=poll-vote&amp;poll_id=' . $pollData['poll_id']) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<ul>
+		<?php print $pollChoices ?>
+	</ul>
+	<div class="right">
+		<input type="submit" class="input-submit" value="<?php print $this->lang['set_poll_vote_submit'] ?>" /></div>
+</form>
+<?php else: ?>
+<ul>
+	<?php print $pollChoices; ?>
+</ul>
+<?php if ($showPollVoters): /** Do we show the member voters info? **/ ?>
+<div class="metadata"><?php print sprintf($this->lang['poll_voters_count'], $pollData['poll_total_votes']) ?>
+<?php endif; ?>
+<?php if ( $memberVoted AND $this->pearRegistry->member['can_delete_poll_vote'] ): /** Can we remove our vote? **/ ?>
+<form method="post" action="<?php print $this->absoluteUrl( 'index.php?load=polls&amp;do=remove-poll-vote&amp;poll_id=' . $pollData['poll_id']) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<div class="right">	
+		<input type="submit" class="input-submit" value="<?php print $this->lang['poll_remove_vote'] ?>" /></div>
+</form>
+<?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,38 @@
+<div class="page-section error-message">
+	<div class="section-title"><?php print $this->lang['error_page_title'] ?></div>
+	<div class="section-content">
+		<?php print $message ?>
+	</div>
+</div>
+<?php
+	/** If we're guests, insert a quick-login form. It can help sometimes to resolve the error. **/
+	if ( $this->member['member_id'] < 1 ):
+?>
+<br /><br />
+<form method="POST" action="<?php print $this->absoluteUrl( 'load=login&amp;do=connect-member' ) ?>">
+	<input type="hidden" name="page_referer" value="<?php print $this->request['page_referer'] ?>" />
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['error_quick_login_form_title'] ?></div>
+		<div class="section-content">
+			<table class="width-full">
+				<tr>
+					<td class="width-sixty">
+						<?php print $this->lang['error_login_member_email'] ?></td>
+					<td class="width-fourty">
+						<input type="text" class="input-text" name="member_email" /></td>
+				</tr>
+				<tr>
+					<td class="width-sixty">
+						<?php print $this->lang['error_login_member_pass'] ?></td>
+					<td class="width-fourty">
+						<input type="password" class="input-text" name="member_password" /></td>
+				</tr>
+			</table>
+		</div>
+		<div class="section-footer right">
+			<input type="submit" class="input-submit" value="<?php print $this->lang['error_login_submit'] ?>" />
+		</div>
+		<div class="end-page-section"></div>
+	</div>
+</form>
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<form method="post" action="<?php print $this->absoluteUrl( 'load=newsletters&amp;do=subscribe' ) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+<input type="hidden" name="newsletter_id" value="<?php print $newsletter['newsletter_id'] ?>" />
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['newsletter_subscribe_form_title'] ?></div>
+	<div class="section-content">
+		<?php if (! empty($error) ): ?>
+		<div class="warning-message"><?php print $error ?></div>
+		<?php endif; ?>
+		<div class="information-message"><?php print $this->lang['newsletter_subscribe_form_desc'] ?></div>
+		<table class="width-full">
+			<tr class="row1">
+				<td class="width-fourty">
+					<?php print $this->lang['subscribe_form_receiver_field'] ?></td>
+				<td class="width-sixty">
+					<input type="text" name="subscriber_mail" class="input-text" /></td>
+			</tr>
+		</table>
+		<div class="actions-bar">
+			<div class="right">
+				<input type="submit" class="input-submit" value="<?php print $this->lang['newsletter_subscribe_button'] ?>" /></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+</form>

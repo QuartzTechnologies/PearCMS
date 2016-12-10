@@ -1,0 +1,51 @@
+<p><?php print $this->lang['installer_step8_instructions'] ?></p>
+<ul class="selection-list">
+<?php foreach ( $starterKits as $starterKit ): ?>
+	<li class="row<?php print ($i++ % 2 === 0 ? '1' : '2' ) ?>" style="background-image: url('<?php print $starterKit['starter_kit_icon'] ?>');">
+		<label for="selected_starter_kit_<?php print $starterKit['starter_kit_key'] ?>">
+			<h3>
+				<input type="radio" name="selected_starter_kit" id="selected_starter_kit_<?php print $starterKit['starter_kit_key'] ?>" value="<?php print $starterKit['starter_kit_key'] ?>" class="middle" <?php if ($starterKit['starter_kit_uuid'] == '4ebc60a0-39a0-48a0-8aa7-05aa9592128d' ): ?>checked="checked"<?php endif; ?> />&nbsp;
+				<?php if ( strtolower($starterKit['starter_kit_author']) == 'pear technology investments, ltd.' OR strtolower($starterKit['starter_kit_author']) == 'pearcms' ): ?>
+				<img src="<?php print $this->pearRegistry->adminCPUrl ?>Images/pearcms-icon.png" alt="" class="middle" /> 
+				<?php endif; ?>
+				<?php printf($this->lang['starter_kit_title_pattern'], $starterKit['starter_kit_name'], $starterKit['starter_kit_version']) ?>
+			</h3>
+			<div>
+				<?php if (! empty($starterKit['starter_kit_author_website']) ): /** Got the author website? **/ ?>
+					<?php printf($this->lang['starter_kit_author_with_website_pattern'], $starterKit['starter_kit_author_website'], $starterKit['starter_kit_author']) ?>
+				<?php else: ?>
+					<?php printf($this->lang['starter_kit_author_without_website_pattern'], $starterKit['starter_kit_author']) ?>
+				<?php endif; ?>
+			</div>
+			<?php if (! empty($starterKit['starter_kit_description']) ): ?>
+				<div><?php print $starterKit['starter_kit_description'] ?>
+			<?php endif; ?>
+		</label>
+	</li>
+<?php endforeach; ?>
+</ul>
+<div id="pearsetup-starterkits-search">
+	<img src="<?php print $this->imagesUrl ?>/search-go.png" alt="" class="middle" /> <a href="http://community.pearcms.com/files/category/6-starter-kits/" class="middle" target="_blank" id="starter-kit-search-link"><?php print $this->lang['starter_kit_search_more_at_pear_market'] ?></a>
+</div>
+<div class="clear"></div>
+<div  style="display: none;" id="starter-kit-search-information">
+	<p>&nbsp;</p>
+	<div class="information-message">
+		<?php printf($this->lang['starter_kit_more_at_market_install_instructions'], $starterKitsBaseDir) ?>
+	</div>
+</div>
+<p>&nbsp;</p>
+<script type="text/javascript">
+//<![CDATA[
+
+	PearRegistry.Language['process_to_installation'] = "<?php print $this->escape($this->lang['process_to_installation']) ?>";
+	document.observe('dom:loaded', PearRegistry.Setup.processToInstall);
+
+	$('starter-kit-search-link').observe('click', function(e) {
+		if ( $('starter-kit-search-information').style.display == 'none' ) {
+			new Effect.Appear('starter-kit-search-information', { duration: 0.6 });
+		}
+	});
+	
+//]]>
+</script>

@@ -1,0 +1,50 @@
+<form method="post" action="<?php print $this->absoluteUrl( 'load=search&amp;do=results' ) ?>">
+<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+<input type="hidden" name="search_all_directories" value="1" />
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['search_form_form_title'] ?></div>
+	<div class="section-content">
+		<?php if ( ! empty($error) ): ?>
+		<div class="warning-message"><?php print $error ?></div>
+		<?php endif; ?>
+		<table class="width-full">
+			<tr>
+				<td class="width-fourty">
+					<?php print $this->lang['search_keywords_fields'] ?></td>
+				<td class="width-sixty">
+					<select name="search_keywords_type">
+						<?php print $formControls['search_keywords_type'] ?>
+					</select> <input type="text" name="search_keywords" style="width: 270px;" value="<?php print $this->request['search_keywords'] ?>" class="input-text" /></td>
+			</tr>
+			<tr>
+				<td class="width-full" colspan="2">
+					<?php print $this->lang['search_sort_order_field'] ?>
+					<select name="sort_order_field">
+						<?php print $formControls['sort_order_field'] ?>
+					</select>
+					<select name="sort_order">
+						<?php print $formControls['sort_order'] ?>
+					</select></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="width-full" style="height: 10px;"></td>
+			</tr>
+			<tr>
+				<td class="width-fourty">
+					<?php print $this->lang['search_in_directories_field'] ?></td>
+				<td class="width-sixty">
+					<select multiple="multiple" name="search_directories[]" style="width: 200px; height: 150px;">
+						<?php print $formControls['available_directories'] ?>
+					</select></td>
+			</tr>
+		</table>
+		<div class="actions-bar">
+			<div class="right">
+				<?php print $this->lang['search_results_limitations_field'] ?> <select name="search_results_limit"><?php print $formControls['results_limit'] ?></select>
+				<input type="submit" class="input-submit" value="<?php print $this->lang['search_submit_button'] ?>" /></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="end-page-section"></div>
+</div>
+</form>

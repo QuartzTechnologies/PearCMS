@@ -1,0 +1,36 @@
+<p>
+	<?php print $this->lang['installer_step4_instructions_title'] ?>
+</p>
+<p>
+	<?php print $this->lang['installer_step4_url_instructions'] ?>
+</p>
+<p>
+		<?php print $this->lang['installer_step4_email_instructions'] ?>
+</p>
+
+<table class="data-table">
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['installer_site_url'] ?>
+		</td>
+		<td style="width-fourty">
+			<input type="text" value="<?php print $websiteUrl ?>" class="input-text ltr" name="base_url" />
+		</td>
+	</tr>
+	<tr class="row2">
+		<td class="width-sixty">
+			<?php print $this->lang['installer_site_email'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" value="<?php print $adminEmail ?>" class="input-text ltr" name="site_admin_email_address" />
+		</td>
+	</tr>
+	<tr class="row1">
+		<td class="width-sixty">
+			<?php print $this->lang['installer_upload_path'] ?>
+		</td>
+		<td class="width-fourty">
+			<input type="text" value="<?php print $uploadPath ?>" class="input-text ltr" name="upload_path" />
+		</td>
+	</tr>
+</table>

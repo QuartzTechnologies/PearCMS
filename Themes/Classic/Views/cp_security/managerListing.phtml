@@ -1,0 +1,14 @@
+<?php foreach ( $tools as $tool ): ?>
+	<div class="security-center-tool-<?php print $tool['_tool_current_state'] ?>">
+	<?php if (! empty($tool['tool_description']) ): ?>
+		<h2><?php print $tool['tool_name'] ?></h2>
+		<div class="description<?php if (! empty($tool['tool_action_link']) ): ?> float-left<?php endif; ?>"><?php print $tool['tool_description'] ?></div>
+	<?php else: ?>
+		<h2 class="<?php if (! empty($tool['tool_action_link']) ): ?>float-left<?php endif; ?> middle" style="margin-top: 5px;"><?php print $tool['tool_name'] ?></h2>
+	<?php endif; ?>
+	<?php if (! empty($tool['tool_action_link']) ): ?>
+		<a href="<?php print $this->absoluteUrl( $tool['tool_action_link'] ) ?>"><?php print $this->lang['execute_tool_link'] ?></a>
+		<div class="clear"></div>
+	<?php endif; ?>
+	</div>
+<?php endforeach; ?>

@@ -1,0 +1,79 @@
+<form method="post" action="<?php print $this->absoluteUrl( $action ) ?>"<?php if ( $name ): ?> name="<?php print $name ?>" id="<?php print $this->escape(( ! $id ? $this->__formatElementId($name) : $id )) ?>"<?php endif; ?><?php if ( $isMultipart ): ?> enctype="multipart/form-data"<?php endif; ?>>
+	<input type="hidden" name="authsession" value="<?php print $this->request['authsession'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<?php if ( count($hiddenFields) > 0 ): /** Do we got any hidden field to attach? **/ ?>
+	<?php foreach ( $hiddenFields as $name => $value ): ?>
+	<input type="hidden" name="<?php print $name ?>" value="<?php print $value ?>" />
+ 	<?php endforeach; ?>
+	<?php endif; ?>
+	<table class="table-with-sidebar">
+		<tr>
+			<td>
+				<div class="data-block">
+					<div class="title" id="PearCPTable_<?php print ++$this->tablesCount ?>">
+						<?php print ( isset($this->lang[$mainSectionTitle]) ? $this->lang[$mainSectionTitle] : $mainSectionTitle ) ?>
+					</div>
+					<div class="content gradient"<?php if ($mainSectionToggled): ?> style="display: none;"<?php endif; ?>>
+						<?php if ( ! empty($description) ): ?>
+						<div class="information-message"><?php print ( isset($this->lang[$description]) ? $this->lang[$description] : $description ) ?></div>
+						<?php endif; ?>
+						<table id="PearCP_Table_<?php print $this->tablesCount ?>" class="gradient-table width-full">
+						<?php foreach ( $mainSectionFields as $descriptive => $field ): ?>
+							<tr class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+								<?php if (! is_int($descriptive) ): /** 2 colspan? **/ ?>
+								<td class="width-fourty">
+									<?php print ( isset($this->lang[$descriptive]) ? $this->lang[$descriptive] : $descriptive) ?></td>
+								<td class="width-sixty">
+									<?php print ( isset($this->lang[$field]) ? $this->lang[$field] : $field) ?></td>
+								<?php else: ?>
+								<td class="width-full" colspan="2">
+									<?php print ( isset($this->lang[$field]) ? $this->lang[$field] : $field) ?></td>
+								<?php endif; ?>
+							</tr>
+						<?php endforeach; ?>
+						</table>
+					</div>
+				</div>
+			</td>
+			<td>
+				<div class="data-block">
+					<div class="title" id="PearCPTable_<?php print ++$this->tablesCount ?>">
+						<?php print ( isset($this->lang[$sidebarTitle]) ? $this->lang[$sidebarTitle] : $sidebarTitle ) ?>
+					</div>
+					<div class="content gradient"<?php if ($sidebarToggled): ?> style="display: none;"<?php endif; ?>>
+						<table id="PearCP_Table_<?php print $this->tablesCount ?>" style="width: 100%" class="gradient-table">
+						<?php foreach ( $sidebarFields as $descriptive => $field ): ?>
+							<tr class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+								<?php if (! is_int($descriptive) ): /** 2 colspan? **/ ?>
+								<td class="width-fourty">
+									<?php print ( isset($this->lang[$descriptive]) ? $this->lang[$descriptive] : $descriptive) ?></td>
+								<td class="width-sixty">
+									<?php print ( isset($this->lang[$field]) ? $this->lang[$field] : $field) ?></td>
+								<?php else: ?>
+								<td class="width-full" colspan="2">
+									<?php print ( isset($this->lang[$field]) ? $this->lang[$field] : $field) ?></td>
+								<?php endif; ?>
+							</tr>
+						<?php endforeach; ?>
+						<tr class="row<?php print ($i++ % 2 == 0 ? 1 : 2) ?>">
+							<td class="width-full" colspan="2">
+								<div class="right" style="padding: 3px;">
+									<?php if (! empty($submitButton) ): ?>
+									<?php print $submitButton ?>
+									<?php elseif ( is_array($submitButtonValue) ): ?>
+									<?php foreach ( $submitButtonValue as $buttonName => $buttonValue ): ?>
+									<input type="submit" name="<?php if (! $buttonName): ?>PearCPTable_<?php print $this->tablesCount ?>_Submit<?php else: print $buttonName; endif; ?>" id="<?php if (! $buttonName): ?>PearCPTable_<?php print $this->tablesCount ?>_Submit<?php else: print $buttonName; endif; ?>" value="<?php print ( ! empty($buttonValue) ? ( isset($this->lang[$buttonValue]) ? $this->lang[$buttonValue] : $buttonValue ) : $this->lang['save_changes'] ) ?>" class="input-submit" />
+									<?php endforeach; ?>
+									<?php else: ?>
+									<input type="submit" name="PearCPTable_<?php print $this->tablesCount ?>_Submit" id="PearCPTable_<?php print $this->tablesCount ?>_Submit" value="<?php print ( ! empty($submitButtonValue) ? ( isset($this->lang[$submitButtonValue]) ? $this->lang[$submitButtonValue] : $submitButtonValue ) : $this->lang['save_changes'] ) ?>" class="input-submit" />
+									<?php endif; ?>
+								</div>
+							</td>
+						</tr>
+						</table>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>

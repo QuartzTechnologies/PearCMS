@@ -1,0 +1,343 @@
+/*****************************************************
+		Site style sheet - RTL Switches
+			PearCMS By Pear Technology Investments Ltd.
+			Style authors: Naor Attia, Yahav Gindi Bar.
+******************************************************/
+
+/*****************************************************
+*
+*	Theme related RTL tweaks
+* This changes are applied to the default theme,
+* If you decided to change theme, you can remove the following (Not all the file, continue to read the instructions)
+*
+* @author Naor Attia, Yahav Gindi Bar.
+*
+******************************************************/
+
+/*****************************************************
+            Global
+******************************************************/
+
+body
+{
+	direction: rtl;
+}
+
+body,
+#pearcms-content-wrapper,
+#pearcms-header,
+#pearcms-menu-bar
+{
+	text-align: right;
+}
+
+/*****************************************************
+            Header
+******************************************************/
+
+/*----------------------------------------------
+	If you want to set your site logo and member bar
+	like in the ltr theme (logo in left, member bar in right)
+	Uncomment the following:
+#pearcms-header
+{
+	direction: ltr;
+}
+
+	And comment the following:
+----------------------------------------------*/
+
+#pearcms-header
+{
+	background-image: url(../Images/site-logo-rtl.png);
+}
+
+#pearcms-header h1,
+#pearcms-header h2
+{
+	left: 0px;
+	right: 95px;
+}
+
+/*----------------------------------------------
+	Comment the content until here.
+----------------------------------------------*/
+
+/*****************************************************
+            Menu Bar
+******************************************************/
+
+#pearcms-menu-bar li
+{
+	float: right;
+}
+
+/** The first child is near the wrapper border, so we don't need any extra border there (as it'll turn into 2px border) **/
+#pearcms-menu-bar li.selected:first-child
+{
+	border-left: 1px solid #bdbdbd;
+	border-right: 0px;
+}
+
+/*****************************************************
+            Content wrapper
+******************************************************/
+
+
+#pearcms-content-wrapper #pearcms-content-container
+{
+	padding-left: 5px;
+	padding-right: 13px;
+}
+
+
+#pearcms-content-wrapper #pearcms-content-container #pearcms-site-navigator
+{
+	background-position: left center;
+	position: relative;
+	right: -13px !important;
+}
+
+#pearcms-content-wrapper #pearcms-content-container #pearcms-site-navigator div
+{
+	background-position: right bottom;
+	padding-left: 0px;
+	padding-right: 20px;
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+
+/*****************************************************
+            Sidebar blocks
+******************************************************/
+
+.sidebar-block .title
+{
+	padding-left: 0px;
+	padding-right: 4px;
+}
+
+.sidebar-block .title .right,
+.sidebar-block .title .float-right
+{
+	float: left;
+	margin-right: 0px;
+	margin-left: 5px;
+}
+
+.sidebar-block .Content p
+{
+	margin-left: 0px;
+	margin-right: 3px;
+}
+
+.sidebar-block .information-message
+{
+	background-position: 99%;
+	padding-left: 0px;
+	padding-right: 25px;
+}
+
+
+#pearcms-member-bar
+{
+	width: 260px;
+	margin: 0px auto;
+}
+
+#pearcms-member-bar li
+{
+	float: right;
+}
+
+#pearcms-member-bar li:first-child
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+#pearcms-member-bar li:last-child
+{
+	margin-left: 0px !important;
+	margin-right: 15px !important;
+}
+
+#pearcms-member-bar a
+{
+	background-position: right bottom;
+	padding-left: 0px;
+	padding-right: 20px;
+}
+
+/*****************************************************
+            Footer
+******************************************************/
+
+#pearcms-footer .left
+{
+	float: right;
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+#pearcms-footer .right
+{
+	float: left;
+	margin-right: 0px;
+	margin-left: 15px;
+}
+
+/*****************************************************
+*
+*	Global CSS Classes
+* This classes are applied on the elements in PearCMS Site.
+* Even if you change theme, We recommend to NOT remove this part of the file.
+*
+* @author Naor Attia, Yahav Gindi Bar.
+*
+******************************************************/
+
+/*****************************************************
+            Page section related
+******************************************************/
+
+.page-section .section-title .right
+{
+	float: left;
+	right: 0px;
+	left: 10px;
+}
+
+
+.page-section .section-title ul li
+{
+	float: right;
+}
+
+.page-section .section-title ul li:last-child
+{
+	margin-left: 0px;
+	margin-right: 6px;
+}
+
+.page-section .section-footer .left,
+.page-section .section-content .actions-bar .left
+{
+	float: right;
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+.page-section .section-footer .right,
+.page-section .section-content .actions-bar .right
+{
+	float: left;
+	margin-left: 5px;
+	margin-right: 0px;
+}
+
+/*****************************************************
+            Pagination
+******************************************************/
+
+div.pagination-wrapper a.left
+{
+	float: right;
+	border-right: 0px;
+	border-left: 1px solid #dcdcdc;
+}
+
+div.pagination-wrapper a.right
+{
+	float: left;
+	border-left: 0px;
+	border-right: 1px solid #dcdcdc;	
+}
+
+
+
+/*****************************************************
+            Global useful classes
+******************************************************/
+
+.left 			{ text-align: right !important; }
+.right			{ text-align: left !important; }
+.float-left		{ float: right !important; }
+.float-right		{ float: left !important; }
+
+/*****************************************************
+            Misc
+******************************************************/
+
+blockquote
+{
+	border-right: 3px solid #96b75c;
+	border-left: 0px;
+	margin-right: 10px;
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 4px;
+}
+
+.page-section table th
+{
+	text-align: right;
+}
+
+.warning-message .title,
+.error-message .title,
+.error-message .Subtitle,
+.redirect-screen-message .title
+{
+	padding-left: 0px;
+	padding-right: 4px;
+}
+
+.warning-message ul,
+.error-message ul,
+.bullets-list
+{
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+#license-agreement-box
+{
+	text-align: right;
+}
+
+#license-agreement-box .title
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+#license-agreement-box .Subtitle
+{
+	margin-left: 0px;
+	margin-right: 2px;
+}
+
+.dropdown_list_head
+{
+	padding-right: 3px;
+	padding-left: 20px;
+	background-position: 1%;
+}
+
+/*****************************************************
+        		Page comments
+******************************************************/
+
+.comment-container > ul > li:first-child
+{
+	float: right;
+	margin-left: 5px;
+	margin-right: 0px;
+}
+
+.comment-container > ul > li:last-child
+{
+	float: left;
+}

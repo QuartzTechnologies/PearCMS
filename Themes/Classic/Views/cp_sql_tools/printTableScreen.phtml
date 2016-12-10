@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><?php printf($this->lang['database_table_structure_print_page_title'], $this->request['table_name'])?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php print $this->settings['site_charset'] ?>" />
+	<link rel="stylesheet" type="text/css"  href="<?php print $this->absoluteUrl( 'StyleSheets/PearPrint.css', 'cp_root' ) ?>" />
+	<?php if ( $this->pearRegistry->localization->selectedLanguage['language_is_rtl'] ): ?>
+	<link rel="stylesheet" type="text/css"  href="<?php print $this->absoluteUrl( 'StyleSheets/PearCPRtl.css', 'cp_root' ) ?>" />
+	<?php endif; ?>
+</head>
+
+<body onload="window.print();">
+<h1><?php printf($this->lang['database_table_structure_print_title'], $this->request['table_name']) ?></h1>
+<h2><?php print $this->lang['database_stucture_title'] ?></h2>
+<table class="width-full">
+	<tr>
+		<th><?php print $this->lang['field_name_field'] ?></th>
+		<th><?php print $this->lang['field_type_field'] ?></th>
+		<th><?php print $this->lang['field_is_null_field'] ?></th>
+		<th><?php print $this->lang['field_default_value_field'] ?></th>
+		<th><?php print $this->lang['field_extra_field'] ?></th>
+	</tr>
+	<?php foreach ( $fields as $field ): ?>
+		<tr class="row<?php print ( $i++ % 2 == 0 ? '1' : '2' ) ?>">
+			<td><?php print $field[ 'Field' ] ?></td>
+			<td><?php print $field[ 'Type' ] ?></td>
+			<td><?php print (strtoupper($field['Null']) == "NO" ? $this->lang['no'] : $this->lang['yes']) ?></td>
+			<td><?php print $field[ 'Defualt' ] ?></td>
+			<td><?php print $field['Extra'] ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+
+<h2><?php print $this->lang['database_indexes_title']?></h2>
+<table class="width-full">
+	<tr>
+		<th><?php print $this->lang['field_name_field']?></th>
+		<th><?php print $this->lang['field_type_field']?></th>
+		<th><?php print $this->lang['feild_numeration_field']?></th>
+		<th><?php print $this->lang['field_name_field']?></th>
+	</tr>
+	<?php foreach ( $keys as $key ): ?>
+		<tr class="row<?php print ( $i++ % 2 == 0 ? '1' : '2' ) ?>">
+			<td><?php print $key['Key_name'] ?></td>
+			<td><?php print $key['Key_name'] ?></td>
+			<td><?php print $key['Cardinality'] ?></td>
+			<td><?php print $key['Column_name'] ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+</body>
+</html>

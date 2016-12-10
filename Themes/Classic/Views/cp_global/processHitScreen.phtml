@@ -1,0 +1,16 @@
+<div class="data-block">
+	<div class="title"><?php print $this->lang['process_request_hit_title'] ?>
+		<div class="float-right"><a href="<?php print $urlAddress ?>">( <?php print $this->lang['cp_redirection_direct_link'] ?> )</a></div></div>
+	<div class="content gradient">
+		<div class="process-screen-message"><?php print $message ?></div>
+		<?php if ( $progress < 0 ): ?>
+		<div class="process-screen-bar">
+			<img src="./Images/progress-bar.gif" alt="" /></div>
+		<?php else: ?>
+		<div class="process-screen-bar-with-precents">
+			<div class="precents"><?php printf($this->lang['precents_number'], floor($precents)) ?></div>
+			<img src="./Images/progress-bar.gif" alt="" />
+		</div>
+		<?php endif; ?>
+	</div>
+</div>

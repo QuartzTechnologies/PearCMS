@@ -1,0 +1,89 @@
+<?php $this->addJSFile('/Site/Pear.Register.js') ?>
+<form method="POST" action="<?php print $this->absoluteUrl( 'load=register&amp;do=register-new-account' ) ?>" id="pear_registration_form">
+	<input type="hidden" name="page_referer" value="<?php print $this->request['page_referer'] ?>" />
+	<input type="hidden" name="secure_token" value="<?php print $this->secureToken ?>" />
+	<input type="hidden" name="terms_agreement_confirmation" value="<?php print $this->request['terms_agreement_confirmation'] ?>" />
+	<div class="page-section">
+		<div class="section-title"><?php print $this->lang['register_form_title'] ?></div>
+		<div class="section-content">
+			<?php if ( count($errors) > 0 ): ?>
+			<div class="warning-message">
+				<div class="title"><?php print $this->lang['register_errors_found'] ?></div>
+				<ul>
+					<?php foreach ($errors as $error): ?>
+					<li><?php print $error ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php endif; ?>
+			<table class="width-full">
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['member_name_field_title'] ?> (<span class="help" title="<?php print $this->lang['member_name_field_title_help'] ?>">?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" name="account_name" class="input-text" value="<?php print $this->request['account_name'] ?>" /></td>
+				</tr>
+				<tr class="row2">
+					<td class="width-fourty">
+						<?php print $this->lang['password_field_title'] ?> (<span class="help" title="<?php print $this->lang['password_field_title_help'] ?>">?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="password" name="account_password" class="input-text" /></td>
+				</tr>
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['repassword_field_title'] ?> (<span class="help" title="<?php print $this->lang['repassword_field_title_help'] ?>">?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="password" name="account_password_confirmation" class="input-text" /></td>
+				</tr>
+				<tr class="row2">
+					<td class="width-fourty">
+						<?php print $this->lang['email_field_title'] ?> (<span class="help" title="<?php print $this->lang['email_field_title'] ?>">?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" name="account_email" class="input-text" value="<?php print $this->request['account_email'] ?>" /></td>
+				</tr>
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['secret_question_form_title'] ?> (<span class="help" title="<?php print $this->lang['secret_question_form_title_help'] ?>">?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<select name="account_secret_question" id="account_secret_question">
+							<?php foreach ( $questions as $id => $title): ?>
+							<option value="<?php print $id ?>"><?php print $title ?></option>
+							<?php endforeach; ?>
+							<option value="0"><?php print $this->lang['write_own_secret_question'] ?></option>
+						</select>
+						<div id="account_custom_secret_question">
+							<input type="text" name="account_custom_secret_question" value="<?php print $this->request['account_custom_secret_question'] ?>" class="input-text" />
+						</div>
+					</td>
+				</tr>
+				<tr class="row2">
+					<td class="width-fourty">
+						<?php print $this->lang['secret_answer_form_title'] ?> (<span class="help" title="<?php print $this->lang['secret_answer_form_title_help'] ?>" >?</span>) <span class="require">*</span></td>
+					<td class="width-sixty">
+						<input type="text" name="account_secret_answer" class="input-text" /></td>
+				</tr>
+				<?php if ( $this->settings['allow_captcha_at_registration'] ): /** Do we allow to use captcha in the registration form **/ ?>
+				<tr class="row1">
+					<td class="width-fourty">
+						<?php print $this->lang['captcha_validation_form_title'] ?> <span class="require">*</span></td>
+					<td class="width-sixty">
+						<img src="<?php print $this->absoluteUrl( 'load=register&amp;do=captcha-image' ) ?>" alt="" /><br />
+						<input type="text" name="captcha_validation" class="input-text" /></td>
+				</tr>
+				<?php endif; ?>
+			</table>
+        </div>
+		<div class="section-footer right">
+				<label for="member_allow_admin_mails"><?php print $this->lang['allow_admin_send_updates_form_title'] ?></label> <input type="checkbox" checked="checked" id="member_allow_admin_mails" name="member_allow_admin_mails" value="1" /><br />
+				<input type="reset" class="input-submit" value="<?php print $this->lang['register_form_reset_button'] ?>" />&nbsp;&middot;&nbsp;<input type="submit" class="input-submit" value="<?php print $this->lang['register_form_submit'] ?>" />
+		</div>
+		<div class="end-page-section"></div>
+	</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+	document.observe('dom:loaded', PearRegisterUtils.initialize);
+	$('account_custom_secret_question').hide();
+//]]>
+</script>

@@ -1,0 +1,182 @@
+/*****************************************************
+		Installer style sheet - RTL Switches
+			PearCMS By Pear Technology Investments Ltd.
+			Style authors: Naor Attia, Yahav Gindi Bar.
+******************************************************/
+
+/*****************************************************
+            Global
+******************************************************/
+
+body
+{
+	direction: rtl;
+}
+
+/*****************************************************
+            Header
+******************************************************/
+
+#pearsetup-header
+{
+	background-position: top left;
+}
+
+#pearsetup-logo
+{
+	text-align: right;
+	background-position: right;
+	padding-left: 0px;
+	padding-right: 95px;
+}
+
+/*****************************************************
+           	Misc
+******************************************************/
+
+#pearsetup-steps-list li
+{
+	float: right;
+}
+
+#pearsetup-steps-list ul li.prev:first-child a:hover
+{
+	border-right: 0px;
+	border-left: 1px solid #a3b86e !important;
+}
+
+#pearsetup-content
+{
+	text-align: right;
+	padding-left: 0px;
+	padding-right: 10px;
+}
+
+#pearsetup-content h2.page-title
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+#pearsetup-content h3.page-subtitle
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+#pearsetup-footer #pearsetup-footer-copyrights
+{
+	float: right;
+	margin-left: 0px;
+	margin-right: 15px;
+}
+
+#pearsetup-footer #pearsetup-footer-extend
+{
+	float: left;
+	margin-left: 15px;
+	margin-right: 0px;
+}
+
+.actions-bar
+{
+	text-align: left;
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
+div.error-message,
+div.standard-message,
+div.warning-message,
+div.information-message
+{
+	background-position: 1%;
+}
+
+.license-agreement-box
+{
+	text-align: right;
+}
+
+.license-agreement-box ul li
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+div.error-message ul li
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+.popup-wrapper .popup-title
+{
+	padding-left: 3px;
+	padding-right: 5px;
+	text-align: right;
+}
+
+.setup-sidebar
+{
+	float: left;
+	margin-left: 15px;
+	margin-right: 0px;
+}
+
+h3.setup-section-title 
+{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+
+div.setup-passed-step
+{
+	background-position: 99%;
+	border-right: 1px solid #44830f;
+	border-left: 0px;
+}
+
+div.setup-failed-step
+{
+	background-position: 99%;
+	border-right: 1px solid #a2211c;
+	border-left: 0px;
+}
+
+div.setup-failed-step span,
+div.setup-passed-step span
+{
+	margin-left: 0px;
+	margin-right: 45px;
+}
+
+
+
+ul.selection-list li
+{
+	background-position: 99% 50%;
+	
+}
+
+ul.selection-list li label
+{
+	padding-left: 4px;
+	padding-right: 50px;
+}
+
+#pearsetup-starterkits-search
+{
+	float: left;
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
+/*****************************************************
+            Global useful classes
+******************************************************/
+
+.left 			{ text-align: right; }
+.right			{ text-align: left; }
+.float-left		{ float: right; }
+.float-right		{ float: left; }

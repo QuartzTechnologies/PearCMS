@@ -1,0 +1,77 @@
+<?php
+/**
+ * Parameters:
+ * 	Required:
+ * 	- String $action:				The form URL
+ *  - Array $groups:					Array contains the tabs groups to create, each item key is the tab strip value and each value is array that contains data about the tab.
+ *  									The array values items is just as the standardForm.phtml $fields array (title, description, fields) {@see standardForm.phtml}
+ *  Optional:
+ * 	- String $name:					The form name [optional]
+ * 	- String $id:					The form id [optional]
+ *  - Array $hiddenFields:			Array contains pre-defined hidden fields to pass with the form [optional]
+ *  - Integer $selectedTab:			The selected tab, if not specified, using the first tab [optional default="1"]
+ *	- String $submitButton:			An alternate submit button use, if not given, generating default one [optional]
+ *  - String $submitButtonValue:		The text value of the DEFAULT {@see $submitButton} submit button [optional default="Save changes"]
+ */
+?>
+
+<div class="data-block">
+<div class="title pointer" id="PearCPTable_<?php print ++$this->tablesCount ?>">
+		<?php print ( isset($this->lang[$title]) ? $this->lang[$title] : $title ) ?>
+		<?php if ( count($actionsMenu) > 0 ): /** Do we got special actions? **/ ?>
+			<div class="float-right">
+			<?php foreach ( $actionsMenu as $i => $menu ): ?>
+				<a href="<?php print $this->absoluteUrl($menu[0]) ?>">
+					<?php if ( isset($menu[2]) ): /** Do we got image? **/ ?>
+					<img src="Images/<?php print $menu[2] ?>" alt="" /> <?php print $menu[1] ?>
+					<?php else: ?>
+					<?php print $menu[1] ?>
+					<?php endif; ?>
+				</a>
+				<?php if ( $i < (count($actionsMenu) - 1) ): ?>
+				&nbsp;&middot;&nbsp;
+				<?php endif; ?>
+			<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+		
+	</div>
+	<div class="content gradient"<?php if ($toggled): ?> style="display: none;"<?php endif; ?>>
+		<?php if ( ! empty($description) ): ?>
+		<div class="information-message"><?php print ( isset($this->lang[$description]) ? $this->lang[$description] : $description ) ?></div>
+		<?php endif; ?>
+		<ul class="selection-list">
+		<?php if ( isset($items[0][0]['title']) ): /** We can get multi-pack array that contains packs of types, that we have to seperate with line, is this the case? **/ ?>
+			<?php foreach ( $items as $count => $itemPack ): /** Lets iterate on each pack **/ ?>
+				<?php foreach ( $itemPack as $i => $item ): /** And render each item **/ ?>
+					<li class="row<?php print ($i++ % 2 == 0 ? '1' : '2') ?><?php if ( $item['selected'] ): ?> selected<?php endif; ?>"<?php if ( $item['image'] ): ?> style="background-image: url(<?php print $item['image'] ?>);"<?php endif; ?>>
+						<a href="<?php print $this->absoluteUrl($item['link']) ?>">
+							<h3><?php if ( $item['selected'] ): ?><img src="./Images/tick.png" alt="" class="middle" /> <?php endif; ?><?php print $item['title'] ?></h3>
+							<?php print $item['description'] ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+				<?php /** Lets make seperators between packs (e.g. in the blocks manager, there is separate line between built-in and thirdparty providers).
+						We have to make sure that we got another pack, and it does got items inside **/
+					if ( (count($items) - 1) > $count AND count($items[$count + 1]) > 0 ): ?>
+				<li class="separator"></li>
+				<?php endif; ?>
+			<?php endforeach;?>
+		<?php else: /** Or we just got simple pack that we need to render **/ ?>
+			<?php foreach ( $items as $i => $item ): ?>
+				<li class="row<?php print ($i++ % 2 == 0 ? '1' : '2') ?><?php if ( $item['selected'] ): ?> selected<?php endif; ?>"<?php if ( $item['image'] ): ?> style="background-image: url(<?php print $item['image'] ?>);"<?php endif; ?>>
+					<a href="<?php print $this->absoluteUrl($item['link']) ?>">
+						<h3><?php if ( $item['selected'] ): ?><img src="./Images/tick.png" alt="" class="middle" /> <?php endif; ?><?php print $item['title'] ?></h3>
+						<?php print $item['description'] ?>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[	
+	PearRegistry.CP.registerTogglableTable("PearCPTable_<?php print $this->tablesCount ?>");
+//]]>
+</script>

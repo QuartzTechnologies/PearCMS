@@ -1,0 +1,78 @@
+<div class="pagination-filters-wrapper">
+	<div>
+		<?php foreach (range('a', 'z') as $letter): /** Quick letters sorting **/ ?>
+		<a href="<?php print $this->absoluteUrl( 'load=memberlist&amp;do=listing&amp;search_keywords=' . $letter . '&amp;search_keywords_type=starts' ) ?>"><?php print $letter; ?></a>
+		<?php if ( $letter != 'z' ): /** Seperator **/ ?>
+		&nbsp;
+		<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
+</div>
+<div class="page-section">
+	<div class="section-title"><?php print $this->lang['memberlist_form_title'] ?></div>
+	<div class="section-content">
+		<?php if ( count($members) > 0 ): /** Do we got any registered members (dah...) **/ ?>
+		<table class="width-full">
+			<?php $i = 0; ?>
+			<?php foreach ($members as $member): ?>
+			<tr class="row<?php print ($i++ % 2 == 0 ? '1' : '2') ?>">
+				<td class="width-twenty center">
+					<img src="<?php print $member['member_avatar'] ?>" alt="" style="width: <?php print $member['member_avatar_sizes']['width'] ?>px; height: <?php print $member['member_avatar_sizes']['height'] ?>px;" /></td>
+				<td class="width-sixty">
+					<a href="<?php print $this->absoluteUrl( 'load=profile&amp;id=' . $member['member_id'] ) ?>"><?php print $member['member_name_formatted'] ?></a><br />
+					<div class="description">
+						<?php print sprintf($this->lang['member_group_pattern'], $member['group_name']) ?>
+					</div>
+					<span class="description">
+						<?php print sprintf($this->lang['member_joined_date_pattern'], $member['member_joined_formatted']) ?>
+					</span>
+				</td>
+				<td class="width-twenty">
+					<a href="<?php print $this->absoluteUrl( 'load=messenger&amp;do=send-message&amp;receiver_name=' . urlencode($member['member_name']) ) ?>" class="secondary-button" title="<?php print $this->lang['send_private_message_button_title'] ?>">
+						<img src="<?php print $this->imagesUrl ?>/private_message_sent.png" alt="" /></a>&nbsp;
+					<a href="<?php print $this->absoluteUrl( 'load=profile&amp;id=' . $member['member_id'] ) ?>" class="secondary-button" title="<?php print $this->lang['view_profile_button_title'] ?>">
+						<img src="<?php print $this->imagesUrl ?>/member-card.png" alt="" /></a>
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php else: ?>
+		<div class="warning-message"><?php print $this->lang['no_members_found'] ?></div>
+		<?php endif; ?>
+		<div class="actions-bar">
+			<form method="post" action="<?php print $this->absoluteUrl( 'load=memberlist' ) ?>">
+				<div class="left">
+					<select name="search_keywords_field">
+						<?php foreach ( array('member_id', 'member_name', 'member_email', 'member_join_date') as $field ): ?>
+						<option value="<?php print $field ?>"<?php if ( $this->request['search_keywords_field'] == $field ): ?> selected="selected"<?php endif; ?>"><?php print $this->lang['member_list_search_keywords_type_' . $field] ?></option>
+						<?php endforeach; ?>
+					</select>
+					
+					<select name="search_keywords_type">
+						<?php foreach ( array('starts', 'ends', 'contains', 'exact', 'exclude') as $type ): ?>
+						<option value="<?php print $type ?>"<?php if( $this->request['search_keywords_type'] == $type ): ?> selected="selected"<?php endif; ?>><?php print $this->lang['member_list_search_type_' . $type] ?></option>
+						<?php endforeach; ?>
+					</select>
+					
+					<input type="text" name="search_keywords" class="input-text" value="<?php print $this->request['search_keywords'] ?>" />
+					&nbsp;&middot;&nbsp;<?php print $this->lang['search_order_field'] ?>
+					<select name="search_order_field">
+						<?php foreach ( array('member_id', 'member_name', 'member_email', 'member_join_date') as $field ): ?>
+						<option value="<?php print $field ?>"<?php if( $this->request['search_order_field'] == $field ): ?> selected="selected"<?php endif; ?>><?php print $this->lang['member_list_search_order_' . $field] ?></option>
+						<?php endforeach; ?>
+					</select>
+					<?php print $this->lang['search_order_type_field'] ?>
+					<select name="search_order_type">
+						<?php foreach ( array('ASC', 'DESC') as $type ): ?>
+						<option value="<?php print $type ?>"<?php if( $this->request['search_order_type'] == $type ): ?> selected="selected"<?php endif; ?>"><?php print $this->lang['search_order_type_' . strtolower($type)] ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</form>
+			<div class="right">
+				<input type="submit" class="input-submit" value="<?php print $this->lang['search_member_button'] ?>" /></div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<?php print $pages ?>

@@ -1,0 +1,21 @@
+<p>
+	<?php print $this->lang['installer_step3_instructions'] ?>
+</p>
+<div class="center">
+	<div class="license-agreement-box" id="agreement_box">
+		<?php print $licenseAgreement ?>
+		<br />
+		<br />
+		<fieldset>
+			<legend><?php print $this->lang['license_agreement_title'] ?></legend>
+			<?php print $this->lang['license_agreement_sign'] ?> <input type="checkbox" name="confirm_agreement" id="confirm_agreement" value="1" />
+		</fieldset>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+	document.observe('dom:loaded', function() {
+		PearRegistry.Setup.standardsOfUseLock();
+	});
+//]]>
+</script>

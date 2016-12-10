@@ -1,0 +1,11 @@
+<p><?php print $this->lang['installer_step2_instructions'] ?></p>
+<table class="data-table paddable">
+<?php foreach ( $components as $component ): ?>
+	<tr class="<?php print ($component[1] ? 'green' : 'blue') ?>">
+		<td class="width-sixty">
+			<?php print $this->lang[$component[0]] ?></td>
+		<td class="width-fourty">
+			<?php print $this->lang[( $component[1] ? 'requirement_ok_message' : 'requirement_failed_message' )]?>
+	</tr>
+<?php endforeach; ?>
+</table>

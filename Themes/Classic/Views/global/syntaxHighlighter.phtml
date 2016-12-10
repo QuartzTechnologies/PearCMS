@@ -1,0 +1,46 @@
+<?php $this->addJSFile( '/ThirdParty/syntaxhighlighter/scripts/shCore.js' ) ?>
+<?php $this->addJSFile( '/ThirdParty/syntaxhighlighter/scripts/shAutoloader.js' ) ?>
+<?php $this->addCSSFile( '/Client/JScripts/ThirdParty/syntaxhighlighter/styles/shCoreDefault.css', 'site' ) ?>
+
+<script type="text/javascript">
+//<![CDATA[
+
+function syntaxHighlighterDetectPath()
+{
+	  var args = arguments,
+	      result = []
+	      ;
+	       
+	  for(var i = 0; i < args.length; i++)
+	  {
+	      result.push(args[i].replace('@', '<?php print $this->absoluteUrl('/Client/JScripts/ThirdParty/syntaxhighlighter/scripts/') ?>' ));
+	  }
+	      
+	  return result;
+};
+ 
+SyntaxHighlighter.autoloader.apply(null, syntaxHighlighterDetectPath(
+  'applescript            @shBrushAppleScript.js',
+  'actionscript3 as3      @shBrushAS3.js',
+  'bash shell             @shBrushBash.js',
+  'coldfusion cf          @shBrushColdFusion.js',
+  'cpp c                  @shBrushCpp.js',
+  'c# c-sharp csharp      @shBrushCSharp.js',
+  'css                    @shBrushCss.js',
+  'delphi pascal          @shBrushDelphi.js',
+  'java                   @shBrushJava.js',
+  'js jscript javascript  @shBrushJScript.js',
+  'perl pl                @shBrushPerl.js',
+  'php                    @shBrushPhp.js',
+  'text plain             @shBrushPlain.js',
+  'py python              @shBrushPython.js',
+  'ruby rails ror rb      @shBrushRuby.js',
+  'sql                    @shBrushSql.js',
+  'vb vbnet               @shBrushVb.js',
+  'xml xhtml xslt html    @shBrushXml.js'
+));
+
+SyntaxHighlighter.all();
+
+//]]>
+</script>
